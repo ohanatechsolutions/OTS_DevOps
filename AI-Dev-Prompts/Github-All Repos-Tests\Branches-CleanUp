@@ -1,0 +1,29 @@
+Please perform a full account-wide audit across ALL of my connected GitHub repositories (including both private and public repos, excluding archived repos unless they have open PRs) to verify CI/CD test health and branch consolidation status before I clean up and delete extra branches.
+
+Do NOT delete, merge, or modify any branches or repositories yourself—only inspect, verify, and report back using the exact structure below.
+
+### 0. Account Overview & Executive Summary
+- List every repository scanned, its default branch (e.g., `main` or `master`), total branch count, and an at-a-glance status (`CLEAN` vs. `ACTION NEEDED`).
+- Provide an immediate overall verdict on which repositories are 100% cleared for branch deletion right now, and which ones have blockers.
+
+---
+
+### 1. Failed Test Runs Audit (Across All Repos)
+Review recent GitHub Actions / CI workflow runs across every repository (checking default branches as well as active feature/PR branches):
+- **Itemized Failures:** Group by repository and list every test run or workflow that failed, including:
+  - Repository & Branch name
+  - Workflow / Test name & Date
+  - Commit hash (and linked PR, if applicable)
+- **Root Cause:** Explain *why* each run failed (include specific error logs, assertion failures, dependency issues, or build errors).
+- **Resolution Status:** State clearly whether each failure was subsequently resolved on a later commit or PR, and explain *how* it was fixed. Flag any **unresolved** failures at the top of the section.
+
+---
+
+### 2. Branch Consolidation & Deletion Safety Check (Across All Repos)
+For every repository, inspect all remote (and local, if cloned) branches and compare them against that repo's default branch:
+- **Repository-by-Repository Branch Breakdown:** Itemize every non-default branch and state:
+  - Whether all commits/changes have been fully merged, rebased, or squash-merged into the default branch.
+  - Whether there are any unmerged commits, open Pull Requests, unpushed changes, or unique files/features that would be lost if deleted.
+- **Deletion Clearance Verdict:**
+  - Mark every extra branch with **YES (Safe to Delete)** or **NO (Do Not Delete Yet — [Reason])**.
+  - Conclude each repository section with a clear confirmation of whether I am approved to delete all extra branches in that repo, and if not, the exact steps required to resolve the remaining blockers first.
