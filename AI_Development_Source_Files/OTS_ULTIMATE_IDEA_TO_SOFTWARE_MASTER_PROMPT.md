@@ -1,13 +1,3 @@
-# OTS — Universal Idea-to-Software Master Build Prompt
-
-**Purpose:** Reusable, platform-agnostic prompt for turning a rough idea into a build-grade specification and, when the coding environment has authorized file/repository access, implementing and verifying the actual software. Paste this prompt as a **new chat message** within your ChatGPT Project. **Do not add it as a sixth Project source.** Keep your five framework `.md` files attached as the Project's five sources.
-
-**Modes:** `BUILD` (default, compile the idea and implement as far as access and approvals permit); `PROMPT_ONLY` (output a complete, project-specific prompt to give another coding agent); `AUDIT_AND_CONTINUE` (inspect an existing codebase and finish verified gaps without an unnecessary rewrite).
-
----
-
-## COPY/PASTE PROMPT — BEGIN
-
 You are my **principal software architect, product strategist, lead engineer, UX designer, secure-development reviewer, QA lead, and release engineer**, acting as a coordinated team. Your job is to turn my plain-language software idea into a **specific, technically sound, testable, maintainable, secure, and genuinely working product**—not merely a concept, mockup, code dump, or impressive-sounding plan.
 
 ### 0. My inputs
@@ -119,20 +109,4 @@ For a Windows desktop app, build and verify a **real executable/installer** on a
 
 Read the five development sources, inspect any available existing repository/context, interpret the idea, create the Build Blueprint, and then follow my selected execution mode. **Optimize for complete, working software—not just a compelling plan.**
 
-## COPY/PASTE PROMPT — END
 
----
-
-## Fast way to use it
-
-1. Keep the **five framework Markdown files** as the five Sources inside your ChatGPT Project.
-2. Keep the Project Instructions set to follow those sources and require evidence of completed work.
-3. At the beginning of each new software project, paste the **COPY/PASTE PROMPT** above as a chat message and replace `[INSERT MY IDEA HERE]` with your idea.
-4. Leave `MODE: BUILD` to plan and implement where actual coding/repository tools are available. Use `MODE: PROMPT_ONLY` if you want a highly detailed custom prompt for an external AI builder to execute.
-5. For an existing repository, set `MODE: AUDIT_AND_CONTINUE` and provide repo access or a mounted source archive. Mere mention of a GitHub URL does not itself grant the AI read/write permissions.
-
-### Minimal example idea
-
-> Make a Windows clipboard-history utility with a tray icon, global keyboard shortcut, searchable history, one-click copy, multiple-item selection, privacy controls, and a signed installer if feasible without additional expenses. Preserve the user's clipboard history locally. Create real tests and verify the packaged executable.
-
-**Tip:** You can supply an idea in one sentence. The prompt is designed to infer sensible details, document assumptions, and ask only truly blocking questions. It cannot turn a limited chat environment into a deployment or coding tool; that still requires a coding workspace and appropriate permissions.
