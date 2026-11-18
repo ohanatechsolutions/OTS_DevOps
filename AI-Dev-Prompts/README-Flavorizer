@@ -1,468 +1,790 @@
-# OTS UNIVERSAL GITHUB README DESIGN PROMPT
-**Professional Repository Documentation & Branding Standard**
+# OHANA TECH SOLUTIONS
+# UNIVERSAL GITHUB README DESIGN STANDARD
 
-## ROLE
+## 0. PROJECT INPUTS
 
-You are a senior GitHub documentation engineer, technical writer, UI/UX designer, and software product branding specialist working for **Ohana Tech Solutions (OTS)**.
+**TARGET GITHUB REPOSITORY:**
 
-Your assignment is to inspect the current GitHub repository and completely redesign its root `README.md` to meet a premium, consistent, professional OTS documentation standard.
+`[PASTE GITHUB REPOSITORY URL HERE]`
 
-The README should have the polished, visually attractive appearance of this reference repository:
+**PRIMARY ACCENT COLOR (HEX):**
 
-https://github.com/ddivyanshsharmaa/keyboard-lock
+`[ENTER HEX COLOR HERE — EXAMPLE: #00BFFF]`
 
-Use the reference for inspiration regarding presentation, layout, navigation, badge organization, and readability. Do not copy its project-specific content or branding.
+**DESIGN REFERENCE:**
 
-**Your primary goal:** Every OTS repository should have the same recognizable visual identity, documentation structure, and quality standards while accurately representing the unique software it contains.
-
----
-
-## PHASE 1 — REPOSITORY INVESTIGATION
-
-Before modifying the README:
-
-1. Inspect the complete repository structure.
-2. Read the existing `README.md`, if present.
-3. Identify the actual project name and purpose.
-4. Identify supported operating systems.
-5. Determine the primary programming languages and frameworks.
-6. Identify the application's actual features.
-7. Inspect dependencies and requirements.
-8. Identify installation methods and build instructions.
-9. Locate screenshots, logos, icons, and other existing assets.
-10. Check GitHub Releases and available installers.
-11. Inspect license and copyright information.
-12. Locate testing, security, contributing, and support documentation.
-13. Identify existing CI/CD workflows.
-14. Determine whether the application is experimental, in development, beta, or production-ready based on available evidence.
-15. Identify any documentation discrepancies.
-
-**Critical rule:** Never invent functionality, download links, security certifications, compatibility claims, version numbers, test results, or releases.
-
-If information cannot be verified, omit it or clearly identify it as unverified.
-
-Do not modify application source code during this task.
+https://github.com/dmunish/reach
 
 ---
 
-## PHASE 2 — UNIVERSAL OTS VISUAL BRANDING
+## 1. YOUR ROLE & OBJECTIVE
 
-Every README must follow these brand guidelines.
+You are a senior GitHub documentation designer, technical writer, software architect, UI/UX designer, and developer-experience engineer.
 
-### Identity
+Your assignment is to inspect the specified GitHub repository and completely redesign its `README.md` to follow the **Ohana Tech Solutions Universal README Design Standard**.
 
-- Organization: Ohana Tech Solutions
-- Short brand: OTS
-- Design theme: Modern cybersecurity / professional technology
-- Style: Premium, minimalist, organized, technical but approachable
-- Primary visual inspiration: GitHub's polished open-source software README layouts
+Use the REACH README as the primary visual reference for:
 
-### Colors
+- Overall layout and presentation.
+- Centered hero banner and project identity.
+- Badge styling and placement.
+- Icon-based section headings.
+- Three-column informational layouts.
+- Technology tables with recognizable logos.
+- Screenshot galleries.
+- GitHub roadmap checkboxes.
+- Whitespace, alignment, and typography.
+- Minimalist acknowledgements and footer.
 
-Use the following as preferred brand colors in custom visual assets:
+**The goal is to make every Ohana Tech Solutions repository look like part of one cohesive, professionally developed software portfolio.**
 
-- Background: `#0F172A`
-- Secondary background: `#1E293B`
-- Primary accent: `#38BDF8`
-- Secondary accent: `#22D3EE`
-- Success: `#22C55E`
-- Warning: `#F59E0B`
-- Text: `#F8FAFC`
+### Core principle
 
-Colors should primarily appear in badges and images because GitHub Markdown does not support arbitrary custom page styling.
+**UNIFORM FORMAT. UNIQUE BRANDING.**
 
-### Brand consistency
+Every repository must share the same overall README structure, presentation, section hierarchy, icon style, spacing, and formatting.
 
-Every repository should use:
+However, each repository retains its own:
 
-- The same heading hierarchy.
-- Consistent badge styles.
-- Identical navigation formatting.
-- Consistent feature tables.
-- Consistent screenshot presentation.
-- Matching installation section layouts.
-- Standardized support and license sections.
-- Similar spacing and separators.
-- A recognizable OTS footer.
+- Custom banner.
+- Primary HEX accent color.
+- Official project name and tagline.
+- Description and purpose.
+- Technical architecture.
+- Features and capabilities.
+- Screenshots.
+- Roadmap.
+- Installation instructions.
 
-Maintain compatibility with GitHub's light and dark themes.
+Do not copy REACH's project-specific content.
+
+Do not modify the software's actual functionality. This assignment concerns README documentation and its supporting visual assets only.
 
 ---
 
-## PHASE 3 — README HEADER
+## 2. AUDIT THE REPOSITORY FIRST
 
-Create a centered introductory section using GitHub-compatible HTML.
+Before making changes, thoroughly inspect the target repository.
 
-The header must contain:
+### Required inspection
 
-1. Project logo, if available.
-2. Prominent project name.
-3. Short, memorable project tagline.
-4. Concise one-to-three-sentence description.
-5. A row of informational badges.
-6. A project banner or existing screenshot, if available.
-7. Clickable internal navigation.
+1. Read the existing `README.md`.
+2. Review relevant source code and project documentation.
+3. Inspect the repository's directory structure.
+4. Identify the application's actual purpose and capabilities.
+5. Identify the programming languages, frameworks, libraries, and dependencies.
+6. Locate existing banners, logos, icons, screenshots, and architecture diagrams.
+7. Identify installation, build, testing, and usage instructions.
+8. Verify the project's actual development status.
+9. Identify licensing and attribution requirements.
+10. Preserve important information already documented.
 
-Example structure:
+### Accuracy requirements
+
+The repository itself is the primary source of truth.
+
+Never invent:
+
+- Implemented features.
+- Supported operating systems.
+- Performance benchmarks.
+- Security capabilities.
+- Completed roadmap items.
+- Passing tests.
+- Release versions.
+- Licenses.
+- Installation commands.
+- Architecture details.
+- Project history or founder motivations.
+
+Distinguish verified functionality from planned or incomplete functionality.
+
+If information cannot be verified, omit the claim or clearly label it as unverified.
+
+---
+
+## 3. UNIVERSAL VISUAL DESIGN SYSTEM
+
+### 3.1 Overall aesthetic
+
+Recreate the polished visual presentation of the REACH README.
+
+The design should feel:
+
+- Modern.
+- Professional.
+- Minimalist.
+- Technically sophisticated.
+- Visually balanced.
+- Easy to scan.
+- Consistent across repositories.
+- Appropriate for a premium software portfolio.
+
+Use GitHub Flavored Markdown and GitHub-compatible HTML.
+
+Do not introduce unsupported custom stylesheets, scripts, or HTML elements.
+
+### 3.2 Project-specific accent color
+
+**PRIMARY ACCENT COLOR: `[USE HEX COLOR FROM SECTION 0]`**
+
+The provided HEX color is the primary accent color for this repository's README.
+
+It replaces the green accent used in the reference README.
+
+Apply this color consistently to:
+
+1. Major section-heading SVG icons.
+2. Feature-card SVG icons.
+3. Problem, purpose, and solution icons.
+4. Workflow icons.
+5. Decorative documentation SVG elements.
+6. Custom visual indicators.
+7. Appropriate Shields.io badges.
+8. Small footer icons, if included.
+
+All custom documentation icons must use the same supplied accent color.
+
+For SVG assets, use the HEX value directly in `stroke` or `fill` attributes.
+
+Do not rely on unsupported CSS filters to recolor icons.
+
+### 3.3 Color exceptions
+
+Do not recolor:
+
+- The project's custom banner.
+- Official technology logos.
+- Existing application logos.
+- Application screenshots.
+- Third-party trademarks.
+- Meaningful status indicators where recoloring would misrepresent their meaning.
+
+Use lighter or darker shades of the supplied color only when necessary for contrast or accessibility.
+
+Ensure the README remains readable in GitHub's light and dark themes.
+
+Do not attempt to force custom colors onto Markdown headings using unsupported GitHub CSS.
+
+### 3.4 Typography
+
+Use GitHub's native typography.
+
+- One `#` heading for the official project name.
+- `##` for major sections.
+- `###` for subsections.
+- Bold text for important labels.
+- Short, readable paragraphs.
+- Consistent capitalization.
+- No unnecessary custom fonts.
+
+### 3.5 Spacing and alignment
+
+Follow the REACH README's spacing conventions.
+
+- Center the hero presentation.
+- Maintain clear separation between major sections.
+- Use consistent spacing around headings.
+- Keep tables balanced.
+- Center informational card content.
+- Avoid excessive blank lines.
+- Maintain consistent image sizing.
+- Use GitHub-compatible HTML for layouts Markdown cannot achieve alone.
+
+---
+
+## 4. REQUIRED README STRUCTURE
+
+Use the following section order across OTS repositories.
+
+### A. HERO BANNER
+
+Display the project's existing custom banner at the very top.
+
+Use centered HTML:
 
 ```html
-<div align="center">
-
-# 🛡️ PROJECT NAME
-
-**Professional Project Tagline**
-
-A clear explanation of what the software does.
-
-![Platform](https://img.shields.io/badge/Platform-Windows-blue?style=flat-square)
-![Language](https://img.shields.io/badge/Language-Python-blue?style=flat-square)
-
-[Features](#features) ·
-[Installation](#installation) ·
-[Usage](#usage) ·
-[Security](#security) ·
-[Support](#support)
-
-</div>
+<p align="center">
+  <img src="Assets/banner.png" width="100%" alt="Project Banner" />
+</p>
 ```
 
-Replace the example platform, language, and navigation with verified project information.
+Replace the example path with the actual banner path.
 
-### Badge standards
+**Requirements:**
 
-Use Shields.io badges with `style=flat-square`.
+- Preserve the original custom banner.
+- Never generate a replacement.
+- Never recolor the banner to match the HEX accent.
+- Preserve its original proportions.
+- Keep it centered.
+- Use responsive sizing.
+- Do not stretch or distort it.
+- Use repository-relative asset paths where possible.
 
-Include relevant verified badges, such as:
+If no banner exists, do not create a broken image reference. Report that the banner needs to be supplied.
 
-- License
-- Latest release
-- Supported operating system
-- Programming language
-- CI build status
-- Last commit
-- GitHub stars
-- Project status
+The custom banner is intentionally unique to each repository.
 
-Use dynamic GitHub badges wherever practical.
+### B. PROJECT NAME, TAGLINE & DESCRIPTION
 
-Do not add misleading badges or arbitrary quality scores.
+Immediately below the banner, display the official project name using a primary Markdown heading.
 
----
+Follow it with a bold, centered tagline and a short, centered description.
 
-## PHASE 4 — STANDARD README STRUCTURE
+Example:
 
-Use this section order where applicable.
+```html
+<p align="center">
+  <b>PROJECT TAGLINE</b>
+</p>
 
-### 1. Overview
+<p align="center">
+  A concise explanation of what this software does and who it serves.
+</p>
+```
 
-Explain:
+Preserve established product names and taglines.
 
-- What the software does.
-- Who it is designed for.
-- What problem it solves.
-- Its main advantages.
+If no tagline exists, create a concise proposed tagline based on the project's verified purpose.
 
-Keep the language clear and compelling.
+Avoid exaggerated marketing language.
 
-### 2. Features
+### C. CENTERED STATUS BADGES
 
-Present core capabilities using a consistent Markdown table.
+Create a centered row of Shields.io badges using the `for-the-badge` style.
 
-| Feature | Description |
-|---|---|
-| Feature name | Concise explanation |
-| Feature name | Concise explanation |
+Default categories:
 
-Describe only verified features.
+1. Project status.
+2. Primary technology stack.
+3. License, if verified.
 
-### 3. Screenshots
+Optional badges:
 
-Show relevant existing application screenshots.
+- Supported platforms.
+- Verified release version.
+- Verified CI/build status.
+- Documentation status.
 
-Use clean layouts and meaningful descriptions.
+Use the supplied HEX color for suitable informational badges.
 
-If no screenshots exist, omit the section or insert a clearly labeled placeholder request.
+Retain meaningful status colors where appropriate.
 
-Do not fabricate application screenshots.
+Keep badges visually consistent in height, spacing, and order.
 
-### 4. Installation
-
-Document the easiest verified installation method first.
-
-Include, as applicable:
-
-- Download instructions
-- Installer instructions
-- Portable application instructions
-- Package manager commands
-- Required dependencies
-- Supported platforms
-- Administrator permission requirements
-
-Provide functional links only.
-
-### 5. Quick Start
-
-Explain how users can begin using the software with minimal effort.
-
-Prefer clear numbered steps.
-
-### 6. Usage
-
-Document primary workflows, options, and commands.
-
-Use syntax-highlighted code blocks when applicable.
-
-### 7. Configuration
-
-Document relevant configuration options, environment variables, and settings.
-
-Never expose actual secrets, credentials, tokens, or private keys.
-
-### 8. Security & Privacy
-
-Explain verified security characteristics, including:
-
-- Permission requirements
-- Data handling
-- Network communication
-- Telemetry, if any
-- Known security limitations
-- Vulnerability reporting procedures
-
-Do not claim that a project is completely secure, malware-free, audited, or privacy-preserving without supporting evidence.
-
-For security products, distinguish actual implemented protections from planned features.
-
-### 9. Development
-
-Include verified build instructions, prerequisites, and development commands.
-
-### 10. Testing
-
-Document actual test commands and available automated checks.
-
-Do not describe a test suite as passing unless the result is verified.
-
-### 11. Roadmap
-
-Include only when an existing roadmap or documented development plan is available.
-
-Clearly distinguish planned features from completed functionality.
-
-### 12. Contributing
-
-Explain how contributions are handled, using existing policies.
-
-### 13. Support
-
-Link to existing official support resources, such as GitHub Issues or Discussions.
-
-Do not invent support email addresses or response-time commitments.
-
-### 14. License
-
-Use the repository's actual license.
-
-Never assume MIT, Apache, GPL, or open-source status simply because the repository is public.
-
-### 15. OTS Footer
-
-Finish with a consistent branded footer:
+Never fabricate license information, passing builds, releases, or project status.
 
 ---
 
-<div align="center">
+### D. WHY THIS EXISTS — CONSOLIDATED INTRODUCTION
 
-**Developed by Ohana Tech Solutions**
+This is the primary introductory section and replaces separate **The Problem** and **The Solution** sections.
 
-*Technology built with purpose.*
+Use the heading:
 
-[GitHub](https://github.com/ORGANIZATION-OR-PROFILE)
+## Why This Exists
 
-</div>
+Place a 24×24 accent-colored SVG icon immediately before the heading, matching the REACH README's icon-heading format.
 
-Replace the placeholder with the verified official GitHub profile or organization URL.
+#### Introductory paragraph
+
+Write approximately 40–80 words explaining:
+
+- What inspired or motivated the project, if documented.
+- What problem or limitation it addresses.
+- Why the software is needed.
+- What value it provides.
+
+Write in a clear, engaging, professional tone.
+
+Do not invent personal backstories, founder motivations, or undocumented project history.
+
+If the original motivation is unknown, explain the project's practical purpose without pretending to know its origin.
+
+#### Three-column visual presentation
+
+Directly below the paragraph, create a GitHub-compatible HTML table with three equal-width columns.
+
+Each column should contain:
+
+- A centered 20×20 SVG icon.
+- A bold, centered heading.
+- A concise, centered description.
+- Consistent spacing and alignment.
+
+**Column 1 — The Problem**
+
+Describe the real-world challenge, frustration, inefficiency, or limitation that the project addresses.
+
+**Column 2 — The Purpose**
+
+Explain why this software exists and its central objective.
+
+**Column 3 — The Solution**
+
+Explain how the software addresses the problem using its actual verified capabilities.
+
+#### Layout requirements
+
+- Use approximately 33% width per column.
+- Match the REACH README's three-column HTML table styling.
+- Apply the supplied HEX color to all custom icons.
+- Keep descriptions approximately 25–45 words each.
+- Use consistent icon dimensions.
+- Maintain balanced visual spacing.
+- Ensure the table remains readable in GitHub light and dark themes.
+- Avoid repeating the same information in the introductory paragraph and cards.
+
+Do not create additional standalone Problem or Solution sections elsewhere.
+
+**The goal is to explain why the project exists, what problem it solves, and how it solves that problem within one cohesive introduction.**
 
 ---
 
-## PHASE 5 — ADVANCED PRESENTATION
+### E. HOW IT WORKS
 
-Use GitHub-supported Markdown and HTML to enhance readability.
+Use a major section heading with a matching 24×24 accent-colored SVG icon.
 
-Allowed elements include:
+Explain the application's actual workflow or architecture.
 
-- Centered headings and images
-- Shields.io badges
-- Markdown tables
-- Clickable table-of-contents navigation
-- Syntax-highlighted code blocks
-- Collapsible `<details>` sections
-- Images with descriptive alternative text
-- Horizontal separators
-- Relevant GitHub-supported emoji
-- Responsive images where practical
-
-Avoid:
-
-- Excessive emojis
-- Huge badge collections
-- Broken image links
-- Unsupported CSS
-- Flashing or distracting animations
-- Unnecessary decorative sections
-- Overly long marketing descriptions
-- Repetitive content
-- Fabricated statistics or screenshots
-
-The result must remain readable on desktop and mobile.
-
----
-
-## PHASE 6 — REPOSITORY-SPECIFIC CUSTOMIZATION
-
-Maintain the same design system across all OTS repositories, but adapt the content automatically.
+Use a numbered sequence with bold labels, similar to the REACH README.
 
 For example:
 
-**OTS System Sanitizer**
-Emphasize scanning, investigation, quarantine, and cleanup capabilities verified in the code.
+1. **Input:** What enters the application.
+2. **Processing:** What the application does internally.
+3. **Execution:** How the software performs its task.
+4. **Output:** What the user receives.
 
-**OTS W.H.I.T.E.**
-Emphasize repository security auditing, supported checks, and reporting.
+These are examples only. Adapt the actual workflow to the repository.
 
-**OTS Firewall79X**
-Emphasize implemented firewall controls, configuration, monitoring, and verified platform requirements.
+If an existing architecture diagram is available, display it centered.
 
-**OTS Clipboard History**
-Emphasize clipboard history, search, productivity workflows, and privacy behavior.
+Do not invent diagrams or processes that do not exist.
 
-**OTS Jarvis**
-Emphasize implemented local AI capabilities, workflow automation, supported models, and user controls.
-
-Do not presume these features exist in every version of the software. Verify them independently for each repository.
-
-The branding stays consistent. The technical documentation remains unique and accurate.
+Keep explanations concise and technically accurate.
 
 ---
 
-## PHASE 7 — ASSET MANAGEMENT
+### F. TECH STACK
 
-Inspect the repository for existing visual assets.
+Use a major section heading with a matching accent-colored SVG icon.
 
-Prefer the following structure for newly added documentation assets:
+Recreate the reference README's technology table presentation.
 
-```text
-repository/
-├── README.md
-├── LICENSE
-└── docs/
-    └── assets/
-        ├── logo.png
-        ├── banner.png
-        └── screenshots/
+Standard columns:
+
+| Component | Technology | Description |
+| :--- | :--- | :--- |
+| Relevant component | Verified technology | Actual purpose |
+
+Use the repository's actual technologies.
+
+Examples of categories, where applicable:
+
+- Frontend.
+- Backend.
+- Database.
+- Desktop framework.
+- AI models.
+- Security engine.
+- APIs.
+- Build tools.
+- Deployment infrastructure.
+
+Use recognizable technology logos from trusted sources such as skillicons.dev when appropriate.
+
+Preserve official technology logo colors.
+
+Maintain consistent logo sizing.
+
+Do not add technologies that are not present in the repository.
+
+---
+
+### G. INSTALLATION & USAGE
+
+Include accurate instructions for installing, building, running, or using the software.
+
+Use a matching accent-colored heading icon.
+
+Adapt instructions to the actual project.
+
+Where applicable, document:
+
+- System requirements.
+- Prerequisites.
+- Installation steps.
+- Build commands.
+- Launch commands.
+- Basic usage.
+- Testing instructions.
+- Configuration requirements.
+
+Use properly labeled code blocks.
+
+For Windows desktop applications, include verified installer or executable instructions when available.
+
+For web applications, include verified development and deployment instructions.
+
+For developer tools, include accurate command-line usage.
+
+Never invent commands or imply an installer exists when it does not.
+
+Preserve essential existing documentation.
+
+---
+
+### H. VISUALS / SCREENSHOTS
+
+Use a major section heading with a matching accent-colored SVG icon.
+
+Recreate the REACH README's two-column screenshot gallery.
+
+Example structure:
+
+| Main Interface | Secondary View |
+| :---: | :---: |
+| Actual screenshot | Actual screenshot |
+| **Settings** | **Results** |
+| Actual screenshot | Actual screenshot |
+
+Requirements:
+
+- Use actual existing screenshots.
+- Prefer repository-relative image paths.
+- Use consistent image sizing.
+- Use `width="100%"` where appropriate.
+- Keep the layout visually balanced.
+- Preserve original screenshot colors.
+- Do not recolor screenshots.
+- Do not fabricate screenshots.
+- Do not present conceptual mockups as completed functionality.
+
+If no screenshots exist, omit the gallery and identify the missing assets in the final handoff.
+
+---
+
+### I. ROADMAP
+
+Use a major section heading with a matching accent-colored SVG icon.
+
+Use GitHub task-list checkboxes, following the reference README.
+
+Example:
+
+```markdown
+- [x] **Completed feature:** Verified implementation.
+- [ ] **Planned feature:** Proposed future work.
 ```
 
-Rules:
+Requirements:
 
-1. Reuse existing suitable images where possible.
-2. Preserve current image files and working references.
-3. Do not create placeholder image files masquerading as genuine assets.
-4. If image generation is available, create only authorized, accurately branded decorative assets.
-5. Never generate screenshots that falsely represent actual software behavior.
-6. Use repository-relative image paths.
-7. Ensure all added images render correctly on GitHub.
-8. Keep file sizes reasonable.
-
-When an asset cannot be created, omit it rather than introducing broken references.
+- Mark items complete only when supported by repository evidence.
+- Clearly distinguish implemented and planned functionality.
+- Preserve relevant existing roadmap items.
+- Use concise descriptions.
+- Keep formatting consistent.
+- Do not invent future development plans.
+- Do not claim production readiness without supporting evidence.
 
 ---
 
-## PHASE 8 — QUALITY ASSURANCE
+### J. ACKNOWLEDGEMENTS
 
-Before completion, validate the final README.
+Use a major section heading with a matching accent-colored SVG icon.
 
-### Content validation
+Credit relevant:
 
-- [ ] Project name is correct.
-- [ ] Description reflects actual functionality.
-- [ ] All listed features are verified.
-- [ ] Supported operating systems are correct.
-- [ ] Installation instructions are accurate.
-- [ ] Commands reference actual files.
-- [ ] Links point to appropriate destinations.
-- [ ] License information matches the repository.
-- [ ] Security claims are supported.
-- [ ] No secrets or sensitive information are exposed.
+- Original open-source projects.
+- Third-party authors.
+- Contributors.
+- Libraries and frameworks.
+- Referenced software projects.
+- Communities or organizations that materially contributed.
 
-### Visual validation
+Preserve required licensing and attribution notices.
 
-- [ ] Header is centered correctly.
-- [ ] Badge styles are uniform.
-- [ ] Navigation anchors work.
-- [ ] Heading hierarchy is consistent.
-- [ ] Tables render correctly.
-- [ ] Images display correctly.
-- [ ] Code blocks use appropriate language identifiers.
-- [ ] No unsupported HTML or CSS is used.
-- [ ] Markdown is readable in light and dark themes.
-- [ ] Layout works on narrow screens.
+Do not claim original authorship of incorporated third-party software.
 
-### Repository validation
-
-- [ ] Existing functional documentation is preserved.
-- [ ] No source-code functionality is altered.
-- [ ] No existing images are accidentally deleted.
-- [ ] Relative links are checked.
-- [ ] README changes are reviewed in the diff.
-- [ ] No unrelated files are modified.
-
-Run available Markdown linting and link-validation tools where feasible.
-
-If GitHub rendering cannot be inspected directly, state that limitation instead of claiming visual validation was completed.
+Omit the section if no meaningful acknowledgements apply.
 
 ---
 
-## PHASE 9 — IMPLEMENTATION
+### K. STANDARDIZED OTS FOOTER
 
-You are authorized to update the root `README.md` and add necessary documentation-only assets.
+End every README with the same minimalist, centered footer.
 
-Follow this sequence:
+Use:
+
+```html
+<p align="center">
+  <sub>Developed by <b>Ohana Tech Solutions</b>.</sub>
+</p>
+```
+
+If a small decorative footer icon is used, apply the supplied HEX accent color.
+
+Keep the footer wording, alignment, and typography consistent across repositories.
+
+---
+
+## 5. UNIVERSAL SVG ICON SYSTEM
+
+Use one consistent icon family across the README, preferably Lucide.
+
+### Icon sizes
+
+| Element | Size |
+| :--- | :--- |
+| Major section icon | 24×24 |
+| Three-column card icon | 20×20 |
+| Small footer icon | 12×12 |
+
+### Standard icon assignments
+
+| Section | Suggested icon |
+| :--- | :--- |
+| Why This Exists | Lightbulb |
+| The Problem | Circle Alert |
+| The Purpose | Target |
+| The Solution | Check Circle |
+| How It Works | Workflow |
+| Tech Stack | Layers |
+| Installation & Usage | Terminal |
+| Visuals | Images |
+| Roadmap | Map |
+| Acknowledgements | Handshake |
+
+All custom SVG icons must use the project's supplied HEX accent color.
+
+Prefer local SVG assets rather than relying on remote icon services.
+
+Suggested directory structure:
+
+```text
+Assets/
+├── banner.png
+├── icons/
+│   ├── why.svg
+│   ├── problem.svg
+│   ├── purpose.svg
+│   ├── solution.svg
+│   ├── workflow.svg
+│   ├── stack.svg
+│   ├── installation.svg
+│   ├── visuals.svg
+│   ├── roadmap.svg
+│   └── acknowledgements.svg
+├── screenshots/
+└── diagrams/
+```
+
+Adapt paths to existing repository conventions.
+
+Do not move or duplicate existing assets unnecessarily.
+
+Use forward slashes in all Markdown and HTML image paths.
+
+Ensure every referenced asset exists.
+
+---
+
+## 6. UNIVERSAL FORMAT, PROJECT-SPECIFIC CONTENT
+
+Every README must follow the same design language, but its technical content must reflect the actual project.
+
+### Desktop applications
+
+Emphasize:
+
+- Primary capabilities.
+- Supported operating systems.
+- Screenshots.
+- Installation.
+- Usage.
+- Configuration.
+
+### Security software
+
+Emphasize:
+
+- Verified security capabilities.
+- Supported scan targets.
+- Detection methods.
+- Safety controls.
+- Known limitations.
+- Testing.
+
+### Web applications
+
+Emphasize:
+
+- Features.
+- Architecture.
+- Authentication.
+- Backend services.
+- Deployment.
+- Development setup.
+
+### AI-powered applications
+
+Emphasize:
+
+- Supported models.
+- AI architecture.
+- Inference workflow.
+- Hardware requirements.
+- Data handling.
+- Limitations.
+
+Do not force irrelevant technical content into a README simply to fill a section.
+
+**Keep the formatting uniform while adapting the information to each software product.**
+
+---
+
+## 7. TECHNICAL REQUIREMENTS
+
+The finished README must:
+
+1. Use GitHub Flavored Markdown.
+2. Use GitHub-supported HTML only.
+3. Render correctly in GitHub light and dark themes.
+4. Use working repository-relative asset paths where possible.
+5. Include meaningful alternative text for images.
+6. Maintain readable table layouts.
+7. Avoid unsupported inline CSS and JavaScript.
+8. Preserve required license and attribution information.
+9. Avoid exposing credentials, tokens, or sensitive configurations.
+10. Avoid broken image references.
+11. Preserve verified installation and usage instructions.
+12. Avoid fabricated technical claims.
+13. Maintain consistent icon sizing and spacing.
+14. Use the specified HEX accent color consistently.
+15. Preserve the original project banner and branding.
+
+Do not modify application source code, dependencies, build configurations, or unrelated files.
+
+---
+
+## 8. IMPLEMENTATION WORKFLOW
+
+Complete the following steps in order.
+
+### Phase 1 — Audit
 
 1. Inspect the repository.
-2. Establish the verified project facts.
-3. Design the README using the standardized OTS layout.
-4. Preserve important existing technical information.
-5. Add or update authorized documentation assets.
-6. Check Markdown syntax.
-7. Validate links and image references.
-8. Review the final diff.
-9. Commit changes to the current working branch if repository write access is available.
-10. Report completion.
+2. Read the existing README.
+3. Identify existing assets.
+4. Verify actual features and technology.
+5. Identify essential documentation to preserve.
 
-Do not force-push, delete branches, modify application functionality, or merge into a protected branch without authorization.
+### Phase 2 — Design
 
-If write access is unavailable, provide the complete replacement README and necessary asset instructions.
+6. Establish the supplied HEX accent color.
+7. Identify the custom banner.
+8. Prepare consistent SVG section icons.
+9. Map existing content to the universal README structure.
+10. Plan the consolidated Why This Exists introduction.
+
+### Phase 3 — Implementation
+
+11. Update the hero presentation.
+12. Format the project name, tagline, and description.
+13. Standardize the badge row.
+14. Build the Why This Exists introduction and three-column table.
+15. Format How It Works.
+16. Build the technology table.
+17. Preserve and improve installation instructions.
+18. Organize existing screenshots.
+19. Format the roadmap.
+20. Preserve acknowledgements.
+21. Add the standardized OTS footer.
+
+### Phase 4 — Verification
+
+22. Validate Markdown syntax.
+23. Validate local image paths.
+24. Verify icon colors and sizes.
+25. Check table formatting.
+26. Check badge accuracy.
+27. Verify technical claims against repository evidence.
+28. Check that no essential documentation was lost.
+29. Review GitHub light and dark theme readability.
+30. Confirm that no unrelated application files were modified.
+
+Where practical, use available Markdown and link validation tools.
+
+If direct GitHub rendering cannot be inspected, report that limitation rather than claiming visual verification.
 
 ---
 
-## FINAL DELIVERABLES
+## 9. FINAL QUALITY CHECKLIST
 
-Provide:
+Before declaring completion, verify:
 
-1. A fully rewritten, professional `README.md`.
-2. Any authorized supporting documentation images.
-3. A consistent OTS visual style.
-4. Working badges and navigation links.
-5. Accurate installation and usage documentation.
-6. Verified links and image references.
-7. A concise summary of modifications.
-8. Any unresolved documentation issues.
+- [ ] Original custom banner preserved.
+- [ ] Official project name preserved.
+- [ ] Centered tagline and description.
+- [ ] Consistent status badges.
+- [ ] Correct project-specific HEX accent color.
+- [ ] Consistent SVG icon family.
+- [ ] Correct icon sizes.
+- [ ] Uniform heading hierarchy.
+- [ ] Balanced spacing and alignment.
+- [ ] Consolidated Why This Exists introduction.
+- [ ] Three-column Problem / Purpose / Solution layout.
+- [ ] Accurate How It Works section.
+- [ ] Verified technology table.
+- [ ] Correct installation and usage instructions.
+- [ ] Real screenshot gallery, if available.
+- [ ] Accurate roadmap checkboxes.
+- [ ] Proper acknowledgements.
+- [ ] Standard Ohana Tech Solutions footer.
+- [ ] Working local asset paths.
+- [ ] GitHub-compatible Markdown and HTML.
+- [ ] Readable light and dark theme presentation.
+- [ ] No fabricated functionality or technical claims.
+- [ ] No unnecessary source-code changes.
 
-**SUCCESS CRITERIA**
+---
 
-The final result should look like a professionally maintained software product on GitHub.
+## 10. FINAL HANDOFF
 
-Someone visiting any Ohana Tech Solutions repository should immediately recognize the same design language, understand what the project does, find installation instructions, and feel confident that the documentation is carefully maintained.
+When finished, provide:
 
-**EXECUTE THE COMPLETE README REDESIGN FOR THE CURRENT REPOSITORY. DO NOT STOP AT A PROPOSAL OR OUTLINE.**
+1. The completed, redesigned `README.md`.
+2. Any required supporting SVG icons or documentation assets.
+3. A concise summary of the design improvements.
+4. Confirmation of the HEX accent color used.
+5. A list of modified files.
+6. Results of actual validation checks.
+7. Any missing assets or unverified information requiring my attention.
+
+If repository write access is available, implement the changes directly.
+
+If write access is unavailable, provide the complete revised README and required assets.
+
+Do not claim that changes were committed, pushed, or tested unless those actions actually occurred.
+
+Do not modify unrelated software functionality.
+
+---
+
+## FINAL DESIGN PRINCIPLE
+
+# UNIFORM FORMAT. UNIQUE BRANDING.
+
+Every Ohana Tech Solutions GitHub README must follow the same professional visual structure inspired by the REACH README.
+
+The custom banner and user-specified HEX accent color define each project's unique visual identity.
+
+Everything else — the layout, heading hierarchy, SVG icon family, badge styling, spacing, informational tables, screenshot presentation, roadmap formatting, and footer — must remain consistent.
+
+The introductory section must combine **Why This Exists**, **The Problem**, **The Purpose**, and **The Solution** into one cohesive, visually compelling presentation.
+
+The finished result should look like one product within a unified portfolio of professionally developed Ohana Tech Solutions software.
+
+**Begin by auditing the specified repository, then implement the complete README redesign. Do not stop at a proposal when actual repository modification is available.**
