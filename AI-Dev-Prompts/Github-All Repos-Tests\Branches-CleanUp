@@ -1,29 +1,621 @@
-Please perform a full account-wide audit across ALL of my connected GitHub repositories (including both private and public repos, excluding archived repos unless they have open PRs) to verify CI/CD test health and branch consolidation status before I clean up and delete extra branches.
+# OHANA TECH SOLUTIONS
+# UNIVERSAL GITHUB ACCOUNT AUDIT, CI/CD HEALTH & BRANCH CONSOLIDATION VERIFICATION
 
-Do NOT delete, merge, or modify any branches or repositories yourself—only inspect, verify, and report back using the exact structure below.
+**MODE:** `FULL_ACCOUNT_AUDIT — READ_ONLY`
+
+**TARGET GITHUB ACCOUNT:** `ohanatechsolutions`
+
+**ACCOUNT URL:** https://github.com/ohanatechsolutions
+
+## 0. Role, Objective & Operating Rules
+
+You are my **principal software engineer, GitHub repository administrator, DevOps engineer, CI/CD specialist, Git branch consolidation expert, application security reviewer, and QA lead**, acting as a coordinated engineering team.
+
+Your assignment is to conduct a comprehensive, account-wide audit of **ALL accessible GitHub repositories** owned by `ohanatechsolutions`, including public and private repositories, to verify that their default branches are fully updated, their CI/CD pipelines are healthy, and their unnecessary development branches can be safely deleted.
+
+The ultimate objective is to leave me with a verified, actionable report showing exactly which repositories and branches are safe to clean up, which have unresolved issues, and what must be fixed before deletion.
+
+### Mandatory operating restrictions
+
+**THIS IS A STRICTLY READ-ONLY AUDIT.**
+
+- Do NOT delete any branches, repositories, tags, or files.
+- Do NOT merge pull requests or branches.
+- Do NOT modify, commit, push, or rewrite code.
+- Do NOT alter GitHub Actions workflows, settings, secrets, or permissions.
+- Do NOT trigger deployments, releases, or potentially costly workflows.
+- Do NOT automatically resolve or dismiss security alerts.
+- Do NOT make any irreversible changes.
+
+You may inspect, compare, analyze, and perform safe local read-only verification. You may propose complete fixes, merge plans, and deletion procedures, but you must leave their execution for a separately authorized task.
+
+### Engineering standard
+
+Use the five OTS Software Development Framework source documents as the standard reference.
+
+Begin with `01_AI_WORKFLOW_AND_GOVERNANCE.md`, then consult the applicable sections of the other four files, especially those covering engineering, testing, security, and release verification.
+
+Never mark anything complete without verifiable evidence.
+
+---
+
+## 1. Account Discovery & Executive Summary
+
+Discover and inspect every accessible repository owned by `ohanatechsolutions`.
+
+Include:
+
+- Public repositories
+- Private repositories
+- Active repositories
+- Repositories with open pull requests
+- Repositories with failed GitHub Actions
+- Repositories with multiple branches
+- Repositories with active development or release branches
+
+Exclude archived repositories from the main audit unless they contain open pull requests. Identify archived repositories separately so the inventory is complete.
+
+Do not silently exclude repositories because of pagination, API errors, missing permissions, or unavailable data.
+
+For each repository, determine:
+
+1. Repository name and URL
+2. Visibility (public/private)
+3. Default branch (`main`, `master`, or another name)
+4. Total remote branch count
+5. Latest default-branch commit SHA and timestamp
+6. Open pull request count
+7. Latest GitHub Actions status
+8. Required status checks and branch protection
+9. Unresolved security alerts, where accessible
+10. Overall repository health
+
+### Executive Summary Table
+
+| Repository | Visibility | Default Branch | Branches | CI/CD | Overall Status |
+|---|---|---|---|---|---|
+| Repository name | Public/Private | main | 3 | PASS | CLEAN |
+
+Use the following classifications:
+
+- **CLEAN:** All applicable checks have been verified, no unresolved critical issues remain, and every extra branch is confirmed safe to delete.
+- **ACTION NEEDED:** At least one unresolved failure, unsafe branch, missing integration, or other blocker exists.
+- **UNVERIFIED:** Required information or verification is unavailable.
+
+### Overall Account Verdict
+
+Provide:
+
+- Total repositories discovered
+- Total repositories successfully audited
+- Total repositories classified CLEAN
+- Total repositories requiring action
+- Total repositories unverified
+- Total remote branches inspected
+- Total branches safe to delete
+- Total branches not safe to delete
+- Total unresolved CI/CD failures
+- Total outstanding pull requests
+- Total unresolved critical security findings
+
+Clearly identify which repositories are **100% cleared for branch deletion** and which are not.
+
+---
+
+## 2. Complete GitHub Actions & CI/CD Failure Audit
+
+Review recent GitHub Actions and other configured CI/CD workflow runs across every repository.
+
+Inspect the default branch and all active feature, development, release, and pull request branches.
+
+Review at least the latest 100 workflow runs per repository where available, extending the review window when necessary to investigate unresolved failures or recent development history.
+
+### 2.1 Identify All Relevant Workflow Problems
+
+Check for:
+
+- Failed workflows and jobs
+- Failed unit or integration tests
+- Build and compilation errors
+- Linting and formatting failures
+- Type-checking errors
+- Dependency installation failures
+- Security scanning failures
+- Packaging and artifact-generation failures
+- Cancelled workflows
+- Timed-out workflows
+- Skipped required checks
+- Pending or stuck workflows
+- Broken GitHub Actions configurations
+- Incompatible runtime or dependency versions
+- Missing permissions or unavailable secrets
+- Failed deployment or release workflows
+
+Do not treat a skipped, cancelled, or missing required check as a passing test.
+
+### 2.2 Itemized Failure Investigation
+
+For every failed workflow, report:
+
+- Repository name
+- Branch name
+- Workflow and job name
+- Run date and time
+- Commit SHA
+- Associated pull request, if applicable
+- Direct GitHub Actions run URL
+- Failing step
+- Relevant error message or assertion
+- Root cause
+- Current resolution status
+
+### 2.3 Root Cause Analysis
+
+Determine why each failure occurred.
+
+Distinguish between:
+
+- Actual application defects
+- Broken tests
+- Incorrect workflow configuration
+- Dependency or environment incompatibility
+- Missing secrets or permissions
+- External service failures
+- Temporary GitHub infrastructure issues
+- Failures caused by obsolete branches
+- Failures already corrected by later commits
+
+Do not guess at root causes. If logs are unavailable or inconclusive, label the cause `UNCONFIRMED`.
+
+### 2.4 Resolution Verification
+
+For every historical failure, investigate whether a later commit or pull request resolved it.
+
+Record:
+
+- Original failing commit
+- Corrective commit or PR
+- Description of the fix
+- Subsequent successful workflow run
+- Whether the passing run tested the current default-branch commit
+
+Classify failures as:
+
+**RESOLVED:** A later relevant run passed and the fix is present in the appropriate branch.
+
+**UNRESOLVED:** The failure still affects the current code or required workflow.
+
+**HISTORICAL / NO LONGER APPLICABLE:** The failed code or workflow has been superseded, removed, or retired, with evidence.
+
+**UNVERIFIED:** There is insufficient evidence to determine the outcome.
+
+Place all unresolved failures at the beginning of this section.
+
+### 2.5 CI/CD Repair Recommendations
+
+For each unresolved failure, provide:
+
+1. Confirmed or suspected root cause
+2. Affected files or workflow configuration
+3. Recommended repair
+4. Exact implementation steps
+5. Tests required after repair
+6. Estimated risk and priority
+7. Whether the repair blocks branch deletion
+
+Do not implement the repairs during this audit.
+
+---
+
+## 3. Complete Branch Consolidation & Deletion Safety Audit
+
+For **EVERY repository**, inspect **EVERY remote branch** and compare it against the repository's actual default branch.
+
+Inspect local branches and unpushed changes only if an authorized local clone is available. Do not assume that GitHub can reveal unpushed commits or local modifications.
+
+### 3.1 Branch Inventory
+
+For each non-default branch, determine:
+
+- Branch name
+- Latest commit SHA and timestamp
+- Last known development activity
+- Associated pull request, if any
+- Whether the branch is protected
+- Whether the branch is active or abandoned
+- Whether it is ahead of or behind the default branch
+- Whether it contains unique commits
+- Whether it contains unique files or functionality
+- Whether its changes already exist on the default branch
+
+### 3.2 Verify Actual Merge Coverage
+
+Check whether each branch's work has been integrated through:
+
+- Standard Git merges
+- Rebase-based merges
+- Squash merges
+- Cherry-picked commits
+- Equivalent patches incorporated through other branches
+
+Do not rely exclusively on commit hashes or GitHub's `Merged` indicator.
+
+Use appropriate Git comparisons, including:
+
+- Commit ancestry
+- Merge-base comparisons
+- Ahead/behind counts
+- Three-dot diffs
+- Patch equivalence
+- File-level differences
+- Pull request merge history
+
+Where appropriate, use read-only Git commands such as:
+
+`git merge-base`, `git log`, `git diff`, `git cherry`, and `git branch --merged`.
+
+A branch with commits not reachable from the default branch is not automatically unsafe if all relevant changes are already incorporated through equivalent patches.
+
+However, a branch must not be declared safe solely because a PR was closed or because its commits are old.
+
+### 3.3 Detect Missing Development Work
+
+Identify branches containing:
+
+- Unmerged bug fixes
+- New functionality
+- Security improvements
+- Configuration changes
+- Documentation updates
+- New tests
+- Dependency updates
+- Build-system improvements
+- Installer or release changes
+- Important files absent from the default branch
+
+Determine whether these changes should be incorporated before the branch is deleted.
+
+Do not automatically assume that the newest branch contains the correct implementation.
+
+### 3.4 Detect Conflicts & Duplicate Work
+
+Identify:
+
+- Branches containing duplicate changes
+- Branches superseded by newer implementations
+- Conflicting feature implementations
+- Stale branches older than 90 days
+- Long-lived feature branches
+- Release and maintenance branches
+- Abandoned experimental branches
+- Branches associated with open or draft pull requests
+- Branches referenced by active workflows or automation
+
+Flag any branch whose deletion could disrupt an active development or release process.
+
+---
+
+## 4. Branch Deletion Clearance
+
+Every non-default branch must receive a clear verdict.
+
+### YES — SAFE TO DELETE
+
+Only when sufficient evidence confirms:
+
+- All required changes are preserved on the default branch.
+- No unique valuable work would be lost.
+- No active pull request requires the branch.
+- No release or maintenance process depends on it.
+- No important workflow or automation requires it.
+- No unresolved uncertainty prevents safe deletion.
+
+### NO — DO NOT DELETE YET
+
+When the branch contains:
+
+- Unmerged valuable changes
+- Unique commits or functionality not yet evaluated
+- An active pull request
+- Unresolved merge conflicts
+- Required release or maintenance work
+- Other confirmed dependencies
+
+Explain the exact blocker.
+
+### UNVERIFIED — DO NOT DELETE YET
+
+When insufficient access, unavailable history, incomplete comparisons, or other missing evidence prevents a reliable decision.
+
+### Required Branch Table
+
+| Repository | Branch | Ahead/Behind | Merge Coverage | Open PR | Safe to Delete? | Reason |
+|---|---|---|---|---|---|---|
+| Repository name | feature/example | 0/5 | Complete | No | YES | Fully incorporated |
+| Repository name | feature/new | 3/2 | Partial | Yes | NO | Unique changes |
+
+For each repository, conclude with:
+
+**REPOSITORY BRANCH DELETION VERDICT:**
+
+- `ALL EXTRA BRANCHES SAFE TO DELETE`
+- `PARTIAL CLEARANCE — SPECIFIC BRANCHES ONLY`
+- `NOT CLEARED — ACTION REQUIRED`
+- `UNVERIFIED — INSUFFICIENT EVIDENCE`
+
+If not fully cleared, explain exactly what must happen before all extra branches can be safely deleted.
+
+---
+
+## 5. Pull Request Audit
+
+Inspect all open pull requests across every repository.
+
+For each PR, identify:
+
+- PR number and URL
+- Source and target branches
+- Draft or ready status
+- Latest activity
+- Mergeability
+- Merge conflicts
+- Review requirements
+- Required checks
+- Unresolved review comments
+- Unique changes not yet integrated
+- Whether it is stale (over 30 days without activity)
+
+Classify each PR as:
+
+- `READY FOR REVIEW`
+- `READY TO MERGE`
+- `BLOCKED BY TESTS`
+- `BLOCKED BY CONFLICTS`
+- `BLOCKED BY REVIEW`
+- `STALE / REVIEW REQUIRED`
+- `UNVERIFIED`
+
+Do not merge or close any pull requests.
+
+Provide a recommended merge order that respects dependencies and minimizes conflicts.
+
+---
+
+## 6. Default Branch Integrity & Repository Health
+
+Verify that each repository's default branch is the appropriate authoritative development baseline.
+
+Check:
+
+- Default branch exists and is accessible.
+- All approved relevant work is present.
+- Latest commit is identified.
+- Required checks pass on the latest commit.
+- No unresolved merge conflicts exist.
+- Build and test configuration is valid.
+- Branch protection is appropriately configured.
+- No known critical security issue is ignored.
+- Documentation matches the current implementation where verifiable.
+- Release artifacts and build outputs are not mistaken for proof of working software.
+
+Where a read-only environment allows, run safe local tests without modifying tracked repository files.
+
+If tests require generated files, dependency installation, network access, secrets, or elevated permissions, explain the constraints and obtain approval before performing potentially risky operations.
+
+Record the exact command, environment, commit, and observed result for every test executed.
+
+If a check cannot be performed, report `NOT RUN` or `UNVERIFIED` rather than claiming it passed.
+
+---
+
+## 7. Security & Supply Chain Review
+
+Perform a non-destructive security review of every accessible repository.
+
+Inspect available evidence for:
+
+- Dependency vulnerabilities
+- Secret scanning alerts
+- Code scanning alerts
+- Excessive GitHub Actions permissions
+- Unpinned or untrusted third-party actions
+- Insecure workflow triggers
+- Unsafe pull request execution patterns
+- Exposed credentials or sensitive files
+- Missing required branch protections
+- Suspicious dependency or workflow changes
+
+Do not print discovered secrets or sensitive data.
+
+Do not alter security settings, dismiss alerts, or enable paid scanning services.
+
+Classify findings by severity and identify whether they block repository clearance or require separate remediation.
+
+Distinguish an actual security review from a claim that a repository is fully secure.
+
+---
+
+## 8. Consolidation & Repair Plan
+
+For every repository with outstanding issues, create a precise, non-destructive remediation plan.
+
+Include:
+
+1. Problems requiring repair
+2. Recommended code or workflow changes
+3. Branches containing valuable unmerged work
+4. Recommended merge order
+5. Expected merge conflicts
+6. Required regression tests
+7. Required security verification
+8. Proposed pull requests
+9. Final verification criteria
+10. Branches that become deletable after successful consolidation
+
+Prioritize:
+
+**P0 — Critical:** Potential data loss, exposed credentials, critical security issues, or serious repository integrity problems.
+
+**P1 — High:** Unresolved required CI failures, important unmerged work, or blocking merge conflicts.
+
+**P2 — Medium:** Noncritical workflow issues, stale pull requests, or configuration inconsistencies.
+
+**P3 — Low:** Documentation cleanup, redundant branches already verified safe, and minor maintenance.
+
+Do not execute this remediation plan during the read-only audit.
+
+---
+
+## 9. Final Cross-Repository Verification
+
+After inspecting all repositories, perform a consistency review of the collected findings.
+
+Confirm that:
+
+- Every accessible active repository was included.
+- Every remote branch was inventoried.
+- Every open PR was accounted for.
+- Relevant workflow failures were investigated.
+- Historical and current failures are clearly distinguished.
+- Default-branch commit SHAs are recorded.
+- Deletion recommendations are supported by actual comparisons.
+- No branch with unverified valuable work is marked safe.
+- Missing permissions or incomplete evidence are disclosed.
+- No repository is marked CLEAN without satisfying its applicable criteria.
+
+If repository state changes during the audit, identify the affected findings as potentially stale and refresh them where possible.
+
+Do not invent results to fill missing data.
+
+---
+
+## 10. Required Final Report Format
+
+Deliver the report in the exact order below.
 
 ### 0. Account Overview & Executive Summary
-- List every repository scanned, its default branch (e.g., `main` or `master`), total branch count, and an at-a-glance status (`CLEAN` vs. `ACTION NEEDED`).
-- Provide an immediate overall verdict on which repositories are 100% cleared for branch deletion right now, and which ones have blockers.
+
+Provide the full repository inventory and overall account status.
+
+Include an immediate verdict identifying which repositories are fully cleared for branch deletion and which are blocked.
+
+### 1. Failed Test Runs Audit — All Repositories
+
+Begin with unresolved failures.
+
+Then provide an itemized historical and current failure review, root causes, fixes already present, and outstanding repair recommendations.
+
+### 2. Branch Consolidation & Deletion Safety — All Repositories
+
+Provide a complete repository-by-repository breakdown of every non-default branch, its merge coverage, unique changes, and deletion clearance.
+
+### 3. Pull Request Audit
+
+List open, blocked, conflicting, stale, and ready-to-merge pull requests.
+
+### 4. Default Branch & Repository Health
+
+Report default-branch integrity, required check status, protection rules, and applicable verification results.
+
+### 5. Security & Dependency Findings
+
+Report outstanding security concerns, severity, evidence, and recommended remediation.
+
+### 6. Recommended Repairs & Consolidation Order
+
+Provide a prioritized action plan identifying exactly what needs to be repaired or merged before branch deletion.
+
+### 7. Final Branch Deletion Checklist
+
+Produce a consolidated checklist grouped by repository.
+
+Use these labels:
+
+- `[ ] YES — Safe to delete`
+- `[ ] NO — Do not delete yet`
+- `[ ] UNVERIFIED — Do not delete yet`
+
+Include direct GitHub branch URLs wherever available.
+
+### 8. Final Account Health Scorecard
+
+| Metric | Verified Result |
+|---|---|
+| Total repositories discovered | |
+| Total repositories audited | |
+| Repositories CLEAN | |
+| Repositories ACTION NEEDED | |
+| Repositories UNVERIFIED | |
+| Total branches inspected | |
+| Branches safe to delete | |
+| Branches blocked from deletion | |
+| Current unresolved CI failures | |
+| Historical failures resolved | |
+| Open pull requests | |
+| Critical security findings | |
+| Repositories fully cleared for cleanup | |
+
+### 9. Final Verdict & Required User Actions
+
+Finish with three clearly separated sections:
+
+**A. SAFE TO CLEAN UP NOW**
+
+Repositories and branches that have been verified safe to delete.
+
+**B. MUST BE FIXED BEFORE CLEANUP**
+
+Outstanding failures, missing merges, unresolved pull requests, and other blockers.
+
+**C. EXACT NEXT STEPS**
+
+A prioritized sequence of actions to achieve a fully consolidated, healthy GitHub account.
+
+Include supporting GitHub URLs, commit hashes, workflow run IDs, and comparison evidence for all material conclusions.
 
 ---
 
-### 1. Failed Test Runs Audit (Across All Repos)
-Review recent GitHub Actions / CI workflow runs across every repository (checking default branches as well as active feature/PR branches):
-- **Itemized Failures:** Group by repository and list every test run or workflow that failed, including:
-  - Repository & Branch name
-  - Workflow / Test name & Date
-  - Commit hash (and linked PR, if applicable)
-- **Root Cause:** Explain *why* each run failed (include specific error logs, assertion failures, dependency issues, or build errors).
-- **Resolution Status:** State clearly whether each failure was subsequently resolved on a later commit or PR, and explain *how* it was fixed. Flag any **unresolved** failures at the top of the section.
+## 11. Autonomous Audit Execution
+
+Begin immediately using the GitHub tools and permissions actually available.
+
+Follow this sequence:
+
+**DISCOVER → INVENTORY → INSPECT CI/CD → INVESTIGATE FAILURES → COMPARE BRANCHES → AUDIT PRs → REVIEW SECURITY → VERIFY → REPORT**
+
+Process every accessible repository systematically.
+
+Do not stop after the first repository.
+
+Do not ask unnecessary questions when the available GitHub data can answer them.
+
+If access is unavailable, report the limitation and identify the minimum permission or connection required.
+
+If the audit is interrupted, preserve a resumable progress summary containing the repositories processed, outstanding repositories, relevant commit SHAs, completed checks, and remaining work.
+
+Never claim to have inspected a repository, run a test, or verified a merge unless you actually did so.
+
+**Do not make any changes to GitHub.**
 
 ---
 
-### 2. Branch Consolidation & Deletion Safety Check (Across All Repos)
-For every repository, inspect all remote (and local, if cloned) branches and compare them against that repo's default branch:
-- **Repository-by-Repository Branch Breakdown:** Itemize every non-default branch and state:
-  - Whether all commits/changes have been fully merged, rebased, or squash-merged into the default branch.
-  - Whether there are any unmerged commits, open Pull Requests, unpushed changes, or unique files/features that would be lost if deleted.
-- **Deletion Clearance Verdict:**
-  - Mark every extra branch with **YES (Safe to Delete)** or **NO (Do Not Delete Yet — [Reason])**.
-  - Conclude each repository section with a clear confirmation of whether I am approved to delete all extra branches in that repo, and if not, the exact steps required to resolve the remaining blockers first.
+## 12. Definition of Audit Completion
+
+This assignment is complete only when:
+
+1. Every accessible in-scope repository has been inventoried and audited.
+2. Current and historical CI/CD failures have been reviewed within the stated audit window.
+3. Every remote branch has received an evidence-backed deletion classification.
+4. All open pull requests have been reviewed.
+5. Every default branch has an integrity and CI/CD status.
+6. Security and dependency findings have been reported where accessible.
+7. Outstanding repairs and merge requirements have been prioritized.
+8. A consolidated branch deletion checklist has been produced.
+9. All verification gaps and access limitations have been explicitly documented.
+10. The final account-wide audit report has been delivered.
+
+**FINAL OBJECTIVE:**
+
+Give me a complete, accurate, evidence-backed understanding of the health of my entire Ohana Tech Solutions GitHub account, ensuring that no important development work is accidentally lost and that I know exactly which branches I can safely delete.
+
+**Do not modify, merge, or delete anything. Audit everything, verify your findings, and leave the final cleanup decisions to me.**
