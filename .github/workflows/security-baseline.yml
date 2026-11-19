@@ -1,0 +1,41 @@
+name: OTS Reusable Security Baseline
+
+on:
+  workflow_call:
+
+permissions:
+  contents: read
+
+jobs:
+  security:
+    name: Filesystem security scan
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: read
+    steps:
+      - name: Check out requesting repository
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Scan dependencies, secrets, and configuration
+        uses: aquasecurity/trivy-action@0.33.1
+        with:
+          scan-type: fs
+          scan-ref: .
+          scanners: vuln,secret,misconfig
+          format: table
+          exit-code: '1'
+          severity: CRITICAL,HIGH
+          ignore-unfixed: false
+
+      - name: Summarize security policy
+        if: always()
+        run: |
+          {
+            echo '### OTS security baseline'
+            echo 'Scope: repository filesystem, dependency manifests, hard-coded secrets, and detectable misconfigurations.'
+            echo 'Release gate: Trivy high/critical findings fail this job.'
+            echo 'Results are in the Trivy step logs. Review and remediate confirmed findings; avoid suppressing issues without justification.'
+          } >> "$GITHUB_STEP_SUMMARY"
