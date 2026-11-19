@@ -136,6 +136,37 @@ jobs:
               while IFS= read -r -d '' file; do node --check "$file"; done
           fi
 
+  python_types:
+    name: Python type-check baseline
+    if: contains(fromJSON('["OTS-Jarvis","TanDM"]'), github.event.repository.name)
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install Mypy
+        run: python -m pip install --disable-pip-version-check 'mypy==1.18.2'
+      - name: Report Python type-checking debt
+        shell: bash
+        run: |
+          set -euo pipefail
+          case "$GITHUB_REPOSITORY" in
+            ohanatechsolutions/OTS-Jarvis) target=jarvis ;;
+            ohanatechsolutions/TanDM) target=tandm ;;
+            *) echo 'Python type check N/A'; exit 0 ;;
+          esac
+          if mypy --follow-imports=skip --ignore-missing-imports --no-incremental "$target"; then
+            echo "Mypy type-check PASS: $target" >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "Mypy type-check DEBT/FAIL: $target; remediation needed before enabling this as a blocking release check." >> "$GITHUB_STEP_SUMMARY"
+          fi
+
   dotnet:
     name: .NET build and test
     if: contains(fromJSON('["OTS-Security-Suite","Clipboard-History"]'), github.event.repository.name)
