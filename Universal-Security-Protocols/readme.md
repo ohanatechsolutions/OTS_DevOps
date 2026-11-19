@@ -25,7 +25,7 @@ historical secrets scan, penetration testing, license review, malware sandboxing
 or runtime testing.
 
 The shared workflow version in application repositories is **commit-pinned** to
-`db739a5baa60c667b5621ab028583063a807218d`. Changes to the central
+`4c525e992c0b2a5b067fc255c1e5238357e4e601`. Changes to the central
 workflow must be reviewed and explicitly adopted by updating that SHA in each
 calling repository. The central repository itself calls the local workflow.
 
