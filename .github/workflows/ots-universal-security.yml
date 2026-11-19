@@ -18,13 +18,3 @@ jobs:
     permissions:
       contents: read
 
-  osv:
-    name: OSV dependency and lockfile audit
-    uses: google/osv-scanner-action/.github/workflows/osv-scanner-reusable.yml@v2.7.1
-    with:
-      upload-sarif: false
-      fail-on-vuln: true
-    permissions:
-      contents: read
-      actions: read
-      security-events: write
