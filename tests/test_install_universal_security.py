@@ -14,7 +14,7 @@ class OnboardingTests(unittest.TestCase):
     def run_main(self, target, response):
         def api(method, endpoint, payload=None, allow_404=False):
             response.append((method, endpoint, payload))
-            if endpoint.endswith("/contents/" + install.PATH + "?ref=main"):
+            if endpoint.endswith("?ref=main") and "/contents/" in endpoint:
                 return None
             if endpoint.endswith("/git/ref/heads/main"):
                 return {"object": {"sha": "a" * 40}}
@@ -31,10 +31,10 @@ class OnboardingTests(unittest.TestCase):
         calls = []
         self.assertEqual(self.run_main("ohanatechsolutions/Example", calls), 0)
         self.assertEqual([method for method, _, _ in calls],
-                         ["GET", "GET", "GET", "POST", "PUT", "POST"])
-        self.assertIn("security-onboarding", calls[4][2]["branch"])
+                         ["GET", "GET", "GET", "GET", "POST", "PUT", "PUT", "POST"])
+        self.assertIn("security-onboarding", calls[5][2]["branch"])
         self.assertEqual(calls[-1][2]["base"], "main")
-        self.assertEqual(calls[-1][2]["head"], calls[4][2]["branch"])
+        self.assertEqual(calls[-1][2]["head"], calls[5][2]["branch"])
 
     def test_rejects_cross_owner(self):
         with mock.patch.dict(os.environ, {"GH_TOKEN": "fake-token"}):
@@ -47,6 +47,7 @@ class OnboardingTests(unittest.TestCase):
         self.assertIn("@" + install.BASELINE, content)
         self.assertIn("contents: read", content)
         self.assertNotIn("contents: write", content)
+        self.assertIn("gitleaks", install.precommit_config())
 
 
 if __name__ == "__main__":
