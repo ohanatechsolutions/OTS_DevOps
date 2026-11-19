@@ -27,16 +27,16 @@ All scanner jobs use read-only repository contents and no production secrets.
 | NVIDIA SkillSpector | Detect `SKILL.md`, invoke static `skillspector scan --no-llm` if present | N/A if none found; no external LLM is used |
 | NVIDIA OpenShell | Runtime sandbox policy for autonomous agents | Not automatically deployed; current Jarvis action surface is administrator-click-only, not an autonomous tool registry |
 | OWASP ZAP | Isolated loopback-only passive baseline CI for Jarvis and TanDM | Weekly/manual, never scans public production URLs; unauthenticated surface only |
-| Release packages | Project-specific verification and hash checks | Actual checksum comparison for Jarvis and Clipboard-History; TanDM and Suite already had release integrity steps |
+| Release packages | Project-specific hash verification, plus signed GitHub provenance generation and verification added to Jarvis, Clipboard-History and Security Suite build workflows | Must pass actual release build; not yet proven by an attestation verification run |
 
 ## Not installed or not yet provable
 
 1. **Branch protection/rulesets are NOT configured by this integration.** GitHub returned HTTP 403 (`Resource not accessible by integration`) for reading protection settings. An account administrator must configure and verify them.
 2. **OpenShell sandbox runtime is NOT installed.** It becomes a required deployment gate *before enabling autonomous code execution or unrestricted tool calling* in Jarvis or any other agent application. Current CI merely records this dependency; it cannot prove a runtime deployment.
-3. **Cryptographic build attestations and independently verified provenance are NOT yet in place across all Windows release processes.** SHA-256 comparison proves artifact integrity against a build-produced checksum, not authenticity of the builder or signing identity.
+3. **Cryptographic build attestations are now configured for the three public Windows application pipelines, but their execution/verification has not yet been proven.** TanDM is private: GitHub's artifact-attestation feature on GitHub Free/Pro/Team is restricted to public repositories. SHA-256 comparison alone proves integrity against the build-produced checksum, not authenticity of the builder or signing identity.
 4. ZAP does not authenticate as users, inspect production deployments, or substitute for penetration tests. Execute solely against ephemeral, synthetic-test instances.
 5. This common scan is not a complete language-specific type-check for every language; each project retains existing build/type-check jobs.
-6. GitHub-hosted Actions and artifact storage have plan-specific limits. During initial rollout, GitHub reported an artifact storage quota failure in the previous OSV workflow; the shared OSV implementation avoids uploading artifacts.
+6. GitHub-hosted Actions and artifact storage have plan-specific limits. GitHub security attestation eligibility also differs for public and private repositories. During initial rollout, GitHub reported an artifact storage quota failure in the previous OSV workflow; the shared OSV implementation avoids uploading artifacts.
 
 ## Administrator action: protect `main`
 
