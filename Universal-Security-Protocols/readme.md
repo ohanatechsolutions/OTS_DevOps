@@ -75,3 +75,26 @@ For Semgrep or OSV findings, confirm exploitability and fixed version before cha
 
 Review **Actions → OTS Universal Security** in each repository. Fix failing jobs and rerun.
 Pin new reusable-workflow commits deliberately after reviewing central changes. Existing app release workflows remain separate and must not be replaced by generic security jobs.
+
+
+## Install in a new repository from the OTS_DevOps Actions tab
+
+The **Install Universal Security in a Repository** workflow is available at
+[Actions → Install Universal Security in a Repository](https://github.com/ohanatechsolutions/OTS_DevOps/actions/workflows/install-universal-security.yml).
+
+**One-time administrator setup:** Create a fine-grained GitHub personal access token owned by an authorized account with access to the target repositories. Grant repository **Contents: read/write**, **Pull requests: read/write**, and **Metadata: read** (automatic). Restrict it to the necessary repositories. Save it in OTS_DevOps as an Actions repository secret named \`OTS_SECURITY_INSTALL_TOKEN\`. The default workflow \`GITHUB_TOKEN\` cannot write to other repositories.
+
+**For each new repository:**
+
+1. Create the repository under \`ohanatechsolutions\`, with a \`main\` default branch.
+2. Grant the installation token access to that repository (fine-grained token repository selection may need updating).
+3. Open **OTS_DevOps → Actions → Install Universal Security in a Repository → Run workflow**.
+4. Enter \`ohanatechsolutions/RepositoryName\`. The installer validates ownership, refuses archived/forked repos, and creates a dedicated onboarding branch and **pull request**. It never directly commits to the target default branch or overwrites an existing different security workflow.
+5. Review the pull request, check GitHub Actions, and merge. Verify **Actions → OTS Universal Security** reports successful scans.
+6. Configure branch protection and optional project-specific ZAP, OpenShell, and Windows release checks separately.
+
+**Important:** The installer intentionally refuses to overwrite an existing caller. Upgrading an installed repository to a newer central workflow commit is a separate reviewable change. The central baseline is commit-pinned; there is no silent, automatic propagation of future security workflow updates.
+
+The installer does not clone scanners into the repository. It installs a small workflow that references the central OTS_DevOps workflow. GitHub-hosted runners install and run the tools when each check executes.
+
+**Current deployment requirement:** The cross-repository token secret must be configured by an authorized GitHub administrator before the installer can create pull requests.
