@@ -1,0 +1,37 @@
+name: Install Universal Security in a Repository
+
+on:
+  workflow_dispatch:
+    inputs:
+      repository:
+        description: 'Target repository (ohanatechsolutions/RepoName)'
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  onboard:
+    name: Open security onboarding pull request
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Validate installation token
+        env:
+          TOKEN: ${{ secrets.OTS_SECURITY_INSTALL_TOKEN }}
+        shell: bash
+        run: |
+          if [ -z "$TOKEN" ]; then
+            echo "::error::Configure OTS_SECURITY_INSTALL_TOKEN with Contents read/write and Pull requests read/write access on target repositories."
+            exit 1
+          fi
+      - name: Install workflow in target repository through a pull request
+        env:
+          GH_TOKEN: ${{ secrets.OTS_SECURITY_INSTALL_TOKEN }}
+          TARGET_REPOSITORY: ${{ inputs.repository }}
+        shell: bash
+        run: python3 scripts/install_universal_security.py --repository "$TARGET_REPOSITORY"
