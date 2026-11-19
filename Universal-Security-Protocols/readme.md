@@ -19,7 +19,7 @@ All scanner jobs use read-only repository contents and no production secrets.
 | Semgrep CE | Registry security-audit rules; source scan on tracked supported languages | ERROR-level rules fail; listed extensions are not coverage guarantees |
 | OSV-Scanner | Official container checks manifests and lockfiles recursively | Vulnerability findings fail; no artifact upload needed |
 | Python QA | Compile check; Ruff correctness rules; existing E4/E7 style debt reported | Errors fail; existing style debt nonblocking and disclosed |
-| Python type checking | Mypy for Jarvis and TanDM; reports legacy type-check debt | Reporting only pending remediation; NOT a passing type gate |
+| Python type checking | Mypy for Jarvis and TanDM | Failing errors now block CI; initial Meta webhook payload type issue has been corrected |
 | Python automated tests | Project-specific pytest/unittest suites for Jarvis, TanDM, Suite | Failing suite fails |
 | Go QA | `go test ./...`, `go vet ./...` in Security Suite scanner | Failing commands fail |
 | JavaScript | `node --check` for JS/CJS source files | Syntax errors fail; not a full linter/type checker |
