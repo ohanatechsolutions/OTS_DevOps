@@ -1,119 +1,61 @@
-# OTS Universal DevOps Security — Deployment and Audit
+# OTS Universal DevOps Security — Active Protocol
 
-**Account:** `ohanatechsolutions` · **Scope:** five accessible active repositories · **Deployment:** November 18, 2026 (Hawaii time)
+**Scope:** all five active repositories accessible to the connected GitHub account: OTS_DevOps, OTS-Jarvis, OTS-Security-Suite, TanDM, Clipboard-History.
 
-## Shared security infrastructure
+This document deliberately distinguishes **active automated checks**, **conditional checks**, and **not deployed / removed from the active protocol**. A passing scan is not proof that pushing a secret is impossible: GitHub Actions scan after the push, not before.
 
-The canonical workflow is [`.github/workflows/security-baseline.yml`](../.github/workflows/security-baseline.yml).
-Each of the five repositories calls it through `.github/workflows/ots-universal-security.yml`.
-External caller repositories pin an exact OTS_DevOps commit rather than the mutable `main` branch.
-This pin must be updated intentionally whenever the central workflow changes.
+## Active automated GitHub Actions baseline — all five repositories
 
-Security checks run on pull requests, pushes to `main`, weekly, and by manual dispatch.
-All scanner jobs use read-only repository contents and no production secrets.
+The central source is [security-baseline.yml](../.github/workflows/security-baseline.yml). Each repository has a caller named `.github/workflows/ots-universal-security.yml`; application callers pin the reviewed central commit `b50882793af0a1e01a8c193b2b6317b94ffa0b6f`.
 
-| Control | Implementation | Interpretation |
-| --- | --- | --- |
-| Trivy | Repository filesystem SCA, secrets and configuration | High/critical findings fail |
-| TruffleHog | Full Git-history credential scanning | Verified and unknown credential results, fails if detected |
-| Semgrep CE | Registry security-audit rules; source scan on tracked supported languages | ERROR-level rules fail; listed extensions are not coverage guarantees |
-| OSV-Scanner | Official container checks manifests and lockfiles recursively | Vulnerability findings fail; no artifact upload needed |
-| Python QA | Compile check; Ruff correctness rules; existing E4/E7 style debt reported | Errors fail; existing style debt nonblocking and disclosed |
-| Python type checking | Mypy for Jarvis and TanDM | Failing errors now block CI; initial Meta webhook payload type issue has been corrected |
-| Python automated tests | Project-specific pytest/unittest suites for Jarvis, TanDM, Suite | Failing suite fails |
-| Go QA | `go test ./...`, `go vet ./...` in Security Suite scanner | Failing commands fail |
-| JavaScript | `node --check` for JS/CJS source files | Syntax errors fail; not a full linter/type checker |
-| .NET | Windows .NET 10 Release builds; projects under tests are exercised | Compilation or applicable tests fail |
-| NVIDIA SkillSpector | Detect `SKILL.md`, invoke static `skillspector scan --no-llm` if present | N/A if none found; no external LLM is used |
-| NVIDIA OpenShell | Runtime sandbox policy for autonomous agents | Not automatically deployed; current Jarvis action surface is administrator-click-only, not an autonomous tool registry |
-| OWASP ZAP | Isolated loopback-only passive baseline CI for Jarvis and TanDM | Weekly/manual, never scans public production URLs; unauthenticated surface only |
-| Release packages | Project-specific hash verification, plus signed GitHub provenance generation and verification added to Jarvis, Clipboard-History and Security Suite build workflows | Must pass actual release build; not yet proven by an attestation verification run |
+These jobs run on pull requests, pushes to `main`, weekly, and manually:
 
-## Not installed or not yet provable
+| Control | Actual enforcement |
+| --- | --- |
+| Trivy | High/critical dependency, secret and misconfiguration findings block the scan |
+| TruffleHog | Scans Git history for verified and unknown credentials; findings block the scan |
+| Semgrep CE | Source-code security rules at ERROR severity block the scan; language coverage varies |
+| OSV-Scanner | Scans dependency manifests and lockfiles for known vulnerable components |
+| Applicable tests | Project-specific Python tests, Go tests/vet, .NET build/test checks where configured |
+| Source checks | Python compilation and selected Ruff correctness checks; JS/CJS syntax checks; Mypy for Jarvis and TanDM; .NET compilation |
 
-1. **Branch protection/rulesets are NOT configured by this integration.** GitHub returned HTTP 403 (`Resource not accessible by integration`) for reading protection settings. An account administrator must configure and verify them.
-2. **OpenShell sandbox runtime is NOT installed.** It becomes a required deployment gate *before enabling autonomous code execution or unrestricted tool calling* in Jarvis or any other agent application. Current CI merely records this dependency; it cannot prove a runtime deployment.
-3. **Cryptographic build attestations are now configured for the three public Windows application pipelines, but their execution/verification has not yet been proven.** TanDM is private: GitHub's artifact-attestation feature on GitHub Free/Pro/Team is restricted to public repositories. SHA-256 comparison alone proves integrity against the build-produced checksum, not authenticity of the builder or signing identity.
-4. ZAP does not authenticate as users, inspect production deployments, or substitute for penetration tests. Execute solely against ephemeral, synthetic-test instances.
-5. This common scan is not a complete language-specific type-check for every language; each project retains existing build/type-check jobs.
-6. GitHub-hosted Actions and artifact storage have plan-specific limits. GitHub security attestation eligibility also differs for public and private repositories. During initial rollout, GitHub reported an artifact storage quota failure in the previous OSV workflow; the shared OSV implementation avoids uploading artifacts.
+**Scope limits:** Python style rules E4/E7 currently report findings but are not a blocking gate. JavaScript syntax checking is not a comprehensive JS/TS linter. Scan results reflect the code and rules examined, not a guarantee of complete coverage.
 
-## Administrator action: protect `main`
+## Additional checks that have an actual project workflow
 
-For each repository go to **Settings → Rules → Rulesets** (or **Settings → Branches → Branch protection rules**, depending on available controls). Create an active rule targeting `main`:
+- **OWASP ZAP:** Jarvis and TanDM have separate isolated, loopback-only passive web baseline workflows; both had verified successful runs. These jobs are not in the all-repository workflow, and do not scan production.
+- **Release integrity:** Windows application workflows have their own package, checksum and/or build attestation checks. TanDM and Security Suite had successful Windows verification runs. Clipboard History's broken workflow YAML was repaired November 19, 2026; validate the new build before claiming release checks pass. Jarvis Windows pilot is manual-only and has not been re-run after the YAML repair.
+- **Local pre-commit detection:** All five repositories contain a Gitleaks `.pre-commit-config.yaml`. This configuration **does not activate itself**. Each developer must install Python, Go, pre-commit and run `pre-commit install` inside every local clone. Cloud-based AI commits can bypass these hooks.
 
-- Require a pull request before merging (recommended: at least one review).
-- Require passing *stable, successfully tested* checks:
-  - `Universal security baseline / Trivy filesystem baseline`
-  - `Universal security baseline / TruffleHog credential history`
-  - `Universal security baseline / Semgrep CE source scan`
-  - `Universal security baseline / OSV dependency and lockfile audit`
-  - `Universal security baseline / Applicable tests and source checks`
-  - For C# repos, also `Universal security baseline / .NET build and test`
-- Prevent force pushes and branch deletion.
-- Apply protections to administrators unless an explicit, documented emergency exception exists.
-- Restrict releases to successful QA and signing/provenance requirements separately.
-- Confirm plan eligibility, especially for the private TanDM repository. Do not mark protection completed until GitHub displays and enforces the rule.
+## Not deployed — excluded from the active protection claims
 
-Do **not** make the weekly ZAP workflow a required PR check; it is not triggered per pull request.
+| Item | Status and rationale |
+| --- | --- |
+| NVIDIA SkillSpector | Conditional job only: runs if a repository contains `SKILL.md`; no skills were present at initial rollout. Do not claim it has performed a skill scan. |
+| NVIDIA OpenShell | **Not deployed.** This is an agent runtime sandbox, not GitHub Actions scanning. Must be addressed separately before giving Jarvis autonomous code/tool execution. |
+| GitHub branch enforcement | **Not configured across all repositories.** GitHub App cannot administer rules. Clipboard History has an active ruleset preventing deletion and force pushes, but it does **not** require successful checks. Other accessible public repositories had no reported rulesets; TanDM ruleset inspection was blocked by GitHub plan restrictions. |
+| GitHub secret scanning / push protection | Account and repository setting cannot be read or changed through this GitHub connection. Not verified. GitHub Actions scans occur **after** pushes; do not treat them as preventive push blocking. |
+| GitHub release provenance everywhere | Per-project and plan-dependent. Do not count as universal until each actual release workflow verifies signatures/attestations. |
 
-## Triage policy
+Items in this section are **not counted as deployed universal controls**. They remain security risks or future architecture requirements; removing them from the active checklist does not make the underlying risk disappear.
 
-A green check means that individual job passed for its tested scope. Never convert `SKIPPED`, `N/A`, `BLOCKED`, `NOT RUN`, or a report-only lint result to `PASS`.
-TruffleHog findings may include real credentials: rotate and revoke any exposed token before removing it from code/history.
-For Semgrep or OSV findings, confirm exploitability and fixed version before changing dependencies. Keep justified exceptions narrowly scoped and reviewed.
+## Onboard future repositories
 
-## Per-repository risk priorities
+[Run the OTS_DevOps installer](https://github.com/ohanatechsolutions/OTS_DevOps/actions/workflows/install-universal-security.yml) to create a reviewable pull request adding the shared CI caller and the local Gitleaks configuration.
 
-- **OTS-Jarvis:** Require sandboxing for autonomous agent tool execution, admin MFA, remote-access isolation, least privilege, prompt-injection tests.
-- **OTS-Security-Suite:** Treat scanned repositories as hostile, enforce file/archive bounds, test native scanners and installer signatures.
-- **TanDM:** Protect OAuth secrets, webhook signatures, role permissions, session data and customer messages; address discovered dependency CVEs.
-- **Clipboard-History:** Protect sensitive clipboard history and Windows startup/tray behavior; verify installer integrity.
-- **OTS_DevOps:** Pin reusable actions and workflow revisions, audit change control, avoid unauthorized token permissions.
+**Activation is currently blocked by an account-owner-only step:** The workflow needs an Actions repository secret named `OTS_SECURITY_INSTALL_TOKEN`. The connected GitHub App cannot create fine-grained personal access tokens or write GitHub Actions secrets, so this secret has **not** been created.
 
-## Maintainer workflow
+One-time setup by the owner:
 
-Review **Actions → OTS Universal Security** in each repository. Fix failing jobs and rerun.
-Pin new reusable-workflow commits deliberately after reviewing central changes. Existing app release workflows remain separate and must not be replaced by generic security jobs.
+1. [Create a fine-grained personal access token](https://github.com/settings/personal-access-tokens/new) for the `ohanatechsolutions` account, scoped to target repositories with Contents read/write and Pull requests read/write.
+2. [Add it as the `OTS_SECURITY_INSTALL_TOKEN` Actions secret](https://github.com/ohanatechsolutions/OTS_DevOps/settings/secrets/actions) in OTS_DevOps. Never paste the token into ChatGPT or commit it to a file.
+3. For future repositories, give the token access to the new repository, then run the OTS_DevOps installation workflow and merge its pull request after reviewing the checks.
 
+The installer never grants itself administrative access or activates GitHub push protection, branch rulesets or local Git hooks. The shared workflow stays pinned to an audited revision; upgrades require review.
 
-## Install in a new repository from the OTS_DevOps Actions tab
+## Keep these expectations
 
-The **Install Universal Security in a Repository** workflow is available at
-[Actions → Install Universal Security in a Repository](https://github.com/ohanatechsolutions/OTS_DevOps/actions/workflows/install-universal-security.yml).
-
-**One-time administrator setup:** Create a fine-grained GitHub personal access token owned by an authorized account with access to the target repositories. Grant repository **Contents: read/write**, **Pull requests: read/write**, and **Metadata: read** (automatic). Restrict it to the necessary repositories. Save it in OTS_DevOps as an Actions repository secret named \`OTS_SECURITY_INSTALL_TOKEN\`. The default workflow \`GITHUB_TOKEN\` cannot write to other repositories.
-
-**For each new repository:**
-
-1. Create the repository under \`ohanatechsolutions\`, with a \`main\` default branch.
-2. Grant the installation token access to that repository (fine-grained token repository selection may need updating).
-3. Open **OTS_DevOps → Actions → Install Universal Security in a Repository → Run workflow**.
-4. Enter \`ohanatechsolutions/RepositoryName\`. The installer validates ownership, refuses archived/forked repos, and creates a dedicated onboarding branch and **pull request**. It never directly commits to the target default branch or overwrites an existing different security workflow.
-5. Review the pull request, check GitHub Actions, and merge. Verify **Actions → OTS Universal Security** reports successful scans.
-6. Configure branch protection and optional project-specific ZAP, OpenShell, and Windows release checks separately.
-
-**Important:** The installer intentionally refuses to overwrite an existing caller. Upgrading an installed repository to a newer central workflow commit is a separate reviewable change. The central baseline is commit-pinned; there is no silent, automatic propagation of future security workflow updates.
-
-The installer does not clone scanners into the repository. It installs a small workflow that references the central OTS_DevOps workflow. GitHub-hosted runners install and run the tools when each check executes.
-
-**Current deployment requirement:** The cross-repository token secret must be configured by an authorized GitHub administrator before the installer can create pull requests.
-
-
-## Local pre-commit secrets safeguard
-
-All five currently managed repositories contain \`.pre-commit-config.yaml\` with the pinned upstream Gitleaks hook (\`v8.30.1\`). The onboarding workflow also installs this file in new repositories.
-
-**One-time per developer environment:** install Python, Go, and the Python \`pre-commit\` package. Within **each local repository clone**, execute:
-
-\`\`\`powershell
-py -m pip install pre-commit
-pre-commit install
-pre-commit run --all-files
-\`\`\`
-
-The Gitleaks hook is installed by pre-commit using Go when first run. The hook subsequently runs automatically during normal \`git commit\` operations made in that local clone. This does **not** protect commits made directly by cloud agents, GitHub web editing, or other computers without hooks installed. It does not prevent all secret leaks, and can be bypassed. Existing CI scanning remains the fallback **after** a push.
-
-**GitHub account administrator actions still needed:** check personal account push protection and repository-specific secret scanning, turn on supported settings, and configure branch rulesets requiring successful security checks. This connected GitHub App does not have permission to change those settings. Public repository secret scanning and user push protection may already be automatic; verify in the GitHub UI. Private-repository capabilities depend on the account and plan.
-
-New repository onboarding creates a PR for both the central workflow caller and local pre-commit configuration. The PR does not activate hooks on machines or enable GitHub account security features.
+- A green security scan indicates **the listed checks passed** on a particular run, not that all leaks are impossible.
+- Never commit actual tokens, customer records, `.env` values or private key material. Use a secret manager/environment variables, and a project-specific `.gitignore`.
+- If a credential is pushed, revoke/rotate it immediately: removing it from the latest commit does not remove historical exposure.
+- [Actions tab](https://github.com/ohanatechsolutions/OTS_DevOps/actions) is the authoritative place to inspect live results, failures and skipped jobs.
