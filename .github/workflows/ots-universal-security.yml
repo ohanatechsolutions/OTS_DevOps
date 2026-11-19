@@ -1,0 +1,19 @@
+name: OTS Universal Security
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  schedule:
+    - cron: '17 16 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  baseline:
+    name: Universal security baseline
+    uses: ./.github/workflows/security-baseline.yml
+    permissions:
+      contents: read
