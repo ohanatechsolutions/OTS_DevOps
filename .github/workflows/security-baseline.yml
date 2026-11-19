@@ -137,7 +137,7 @@ jobs:
           fi
 
   python_types:
-    name: Python type-check baseline
+    name: Python type-check gate
     if: contains(fromJSON('["OTS-Jarvis","TanDM"]'), github.event.repository.name)
     runs-on: ubuntu-latest
     timeout-minutes: 15
@@ -161,11 +161,8 @@ jobs:
             ohanatechsolutions/TanDM) target=tandm ;;
             *) echo 'Python type check N/A'; exit 0 ;;
           esac
-          if mypy --follow-imports=skip --ignore-missing-imports --no-incremental "$target"; then
-            echo "Mypy type-check PASS: $target" >> "$GITHUB_STEP_SUMMARY"
-          else
-            echo "Mypy type-check DEBT/FAIL: $target; remediation needed before enabling this as a blocking release check." >> "$GITHUB_STEP_SUMMARY"
-          fi
+          mypy --follow-imports=skip --ignore-missing-imports --no-incremental "$target"
+          echo "Mypy type-check PASS: $target" >> "$GITHUB_STEP_SUMMARY"
 
   dotnet:
     name: .NET build and test
