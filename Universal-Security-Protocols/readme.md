@@ -1,71 +1,76 @@
-# OTS Universal DevOps Security
+# OTS Universal DevOps Security — Deployment and Audit
 
-This directory documents the baseline security checks used by Ohana Tech Solutions repositories.
+**Account:** `ohanatechsolutions` · **Scope:** five accessible active repositories · **Deployment:** November 18, 2026 (Hawaii time)
 
-## What is deployed
+## Shared security infrastructure
 
-The source of truth is [the reusable GitHub Actions workflow](../.github/workflows/security-baseline.yml).
-Each participating repository has its own `.github/workflows/ots-universal-security.yml`
-calling the shared workflow. The central repository calls it locally.
+The canonical workflow is [`.github/workflows/security-baseline.yml`](../.github/workflows/security-baseline.yml).
+Each of the five repositories calls it through `.github/workflows/ots-universal-security.yml`.
+External caller repositories pin an exact OTS_DevOps commit rather than the mutable `main` branch.
+This pin must be updated intentionally whenever the central workflow changes.
 
-The shared workflow uses Trivy to inspect the checked-out repository for:
-- known vulnerabilities in dependencies detectable from repository manifests/lockfiles;
-- suspected hard-coded secrets;
-- detectable misconfigurations.
+Security checks run on pull requests, pushes to `main`, weekly, and by manual dispatch.
+All scanner jobs use read-only repository contents and no production secrets.
 
-High and critical findings return a nonzero exit code. All scans run in GitHub-hosted
-Actions runners; they do not require business production credentials.
+| Control | Implementation | Interpretation |
+| --- | --- | --- |
+| Trivy | Repository filesystem SCA, secrets and configuration | High/critical findings fail |
+| TruffleHog | Full Git-history credential scanning | Verified and unknown credential results, fails if detected |
+| Semgrep CE | Registry security-audit rules; source scan on tracked supported languages | ERROR-level rules fail; listed extensions are not coverage guarantees |
+| OSV-Scanner | Official container checks manifests and lockfiles recursively | Vulnerability findings fail; no artifact upload needed |
+| Python QA | Compile check; Ruff correctness rules; existing E4/E7 style debt reported | Errors fail; existing style debt nonblocking and disclosed |
+| Python automated tests | Project-specific pytest/unittest suites for Jarvis, TanDM, Suite | Failing suite fails |
+| Go QA | `go test ./...`, `go vet ./...` in Security Suite scanner | Failing commands fail |
+| JavaScript | `node --check` for JS/CJS source files | Syntax errors fail; not a full linter/type checker |
+| .NET | Windows .NET 10 Release builds; projects under tests are exercised | Compilation or applicable tests fail |
+| NVIDIA SkillSpector | Detect `SKILL.md`, invoke static `skillspector scan --no-llm` if present | N/A if none found; no external LLM is used |
+| NVIDIA OpenShell | Runtime sandbox policy for autonomous agents | Not automatically deployed; current Jarvis action surface is administrator-click-only, not an autonomous tool registry |
+| OWASP ZAP | Isolated loopback-only passive baseline CI for Jarvis and TanDM | Weekly/manual, never scans public production URLs; unauthenticated surface only |
+| Release packages | Project-specific verification and hash checks | Actual checksum comparison for Jarvis and Clipboard-History; TanDM and Suite already had release integrity steps |
 
-## Execution and limits
+## Not installed or not yet provable
 
-Runs on every pull request, on pushes to `main`, manually, and at 16:17 UTC on Mondays.
-This is **not** evidence of zero vulnerabilities. Coverage depends on the supported
-ecosystems and manifest/lockfile quality. It does not replace CodeQL/SAST, a full
-historical secrets scan, penetration testing, license review, malware sandboxing,
-or runtime testing.
+1. **Branch protection/rulesets are NOT configured by this integration.** GitHub returned HTTP 403 (`Resource not accessible by integration`) for reading protection settings. An account administrator must configure and verify them.
+2. **OpenShell sandbox runtime is NOT installed.** It becomes a required deployment gate *before enabling autonomous code execution or unrestricted tool calling* in Jarvis or any other agent application. Current CI merely records this dependency; it cannot prove a runtime deployment.
+3. **Cryptographic build attestations and independently verified provenance are NOT yet in place across all Windows release processes.** SHA-256 comparison proves artifact integrity against a build-produced checksum, not authenticity of the builder or signing identity.
+4. ZAP does not authenticate as users, inspect production deployments, or substitute for penetration tests. Execute solely against ephemeral, synthetic-test instances.
+5. This common scan is not a complete language-specific type-check for every language; each project retains existing build/type-check jobs.
+6. GitHub-hosted Actions and artifact storage have plan-specific limits. During initial rollout, GitHub reported an artifact storage quota failure in the previous OSV workflow; the shared OSV implementation avoids uploading artifacts.
 
-The shared workflow version in application repositories is **commit-pinned** to
-`4c525e992c0b2a5b067fc255c1e5238357e4e601`. Changes to the central
-workflow must be reviewed and explicitly adopted by updating that SHA in each
-calling repository. The central repository itself calls the local workflow.
+## Administrator action: protect `main`
 
-## Reviewing results
+For each repository go to **Settings → Rules → Rulesets** (or **Settings → Branches → Branch protection rules**, depending on available controls). Create an active rule targeting `main`:
 
-1. Open the repository's **Actions** tab.
-2. Open **OTS Universal Security**, then **Universal security baseline**.
-3. Inspect the **Scan dependencies, secrets, and configuration** step.
-4. Confirm severity, affected package or file, exploitability, and remediation.
-5. Fix confirmed high/critical findings and rerun. Document justified false positives
-   rather than disabling scanning globally.
-6. For releases, require the successful baseline status and project-specific tests.
+- Require a pull request before merging (recommended: at least one review).
+- Require passing *stable, successfully tested* checks:
+  - `Universal security baseline / Trivy filesystem baseline`
+  - `Universal security baseline / TruffleHog credential history`
+  - `Universal security baseline / Semgrep CE source scan`
+  - `Universal security baseline / OSV dependency and lockfile audit`
+  - `Universal security baseline / Applicable tests and source checks`
+  - For C# repos, also `Universal security baseline / .NET build and test`
+- Prevent force pushes and branch deletion.
+- Apply protections to administrators unless an explicit, documented emergency exception exists.
+- Restrict releases to successful QA and signing/provenance requirements separately.
+- Confirm plan eligibility, especially for the private TanDM repository. Do not mark protection completed until GitHub displays and enforces the rule.
 
-The workflow has read-only `contents` permissions and does not require repository
-secrets. Never add production tokens to scan inputs. Dependency databases and
-third-party action downloads may require outbound network access.
+Do **not** make the weekly ZAP workflow a required PR check; it is not triggered per pull request.
 
-## Repo-specific security requirements
+## Triage policy
 
-| Repository | Additional review beyond baseline |
-| --- | --- |
-| OTS-Jarvis | Agent tool permissions, prompt injection, local inference service binding, remote access |
-| OTS-Security-Suite | Untrusted archives/files, scanner sandboxing, installer and signature verification |
-| TanDM | Google/Meta OAuth, employee authorization, webhooks, message privacy, session controls |
-| Clipboard-History | Clipboard confidentiality, secure local storage, startup behavior, installer integrity |
-| OTS_DevOps | Workflow permissions, dependency pinning, template change reviews |
+A green check means that individual job passed for its tested scope. Never convert `SKIPPED`, `N/A`, `BLOCKED`, `NOT RUN`, or a report-only lint result to `PASS`.
+TruffleHog findings may include real credentials: rotate and revoke any exposed token before removing it from code/history.
+For Semgrep or OSV findings, confirm exploitability and fixed version before changing dependencies. Keep justified exceptions narrowly scoped and reviewed.
 
-## Governance
+## Per-repository risk priorities
 
-- Do not grant write or admin tokens to pull-request security jobs.
-- Do not execute untrusted PR code with privileged credentials.
-- Keep application build/release workflows intact; this baseline is additive.
-- Review versions and security advisories for GitHub Actions dependencies.
-- Enable protected main branches and required security checks once check names are
-  confirmed stable and initial findings have been triaged.
-- If a repository is private, verify plan and organization access to any additional
-  GitHub Advanced Security features before depending on them.
+- **OTS-Jarvis:** Require sandboxing for autonomous agent tool execution, admin MFA, remote-access isolation, least privilege, prompt-injection tests.
+- **OTS-Security-Suite:** Treat scanned repositories as hostile, enforce file/archive bounds, test native scanners and installer signatures.
+- **TanDM:** Protect OAuth secrets, webhook signatures, role permissions, session data and customer messages; address discovered dependency CVEs.
+- **Clipboard-History:** Protect sensitive clipboard history and Windows startup/tray behavior; verify installer integrity.
+- **OTS_DevOps:** Pin reusable actions and workflow revisions, audit change control, avoid unauthorized token permissions.
 
-## Next improvements
+## Maintainer workflow
 
-Add language-aware SAST, build/test quality gates, verified SBOMs, signing
-and provenance controls, and private-repository access policies on a
-per-project basis. These controls are not claimed to be installed by this baseline.
+Review **Actions → OTS Universal Security** in each repository. Fix failing jobs and rerun.
+Pin new reusable-workflow commits deliberately after reviewing central changes. Existing app release workflows remain separate and must not be replaced by generic security jobs.
