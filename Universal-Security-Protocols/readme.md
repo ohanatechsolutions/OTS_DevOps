@@ -98,3 +98,22 @@ The **Install Universal Security in a Repository** workflow is available at
 The installer does not clone scanners into the repository. It installs a small workflow that references the central OTS_DevOps workflow. GitHub-hosted runners install and run the tools when each check executes.
 
 **Current deployment requirement:** The cross-repository token secret must be configured by an authorized GitHub administrator before the installer can create pull requests.
+
+
+## Local pre-commit secrets safeguard
+
+All five currently managed repositories contain \`.pre-commit-config.yaml\` with the pinned upstream Gitleaks hook (\`v8.30.1\`). The onboarding workflow also installs this file in new repositories.
+
+**One-time per developer environment:** install Python, Go, and the Python \`pre-commit\` package. Within **each local repository clone**, execute:
+
+\`\`\`powershell
+py -m pip install pre-commit
+pre-commit install
+pre-commit run --all-files
+\`\`\`
+
+The Gitleaks hook is installed by pre-commit using Go when first run. The hook subsequently runs automatically during normal \`git commit\` operations made in that local clone. This does **not** protect commits made directly by cloud agents, GitHub web editing, or other computers without hooks installed. It does not prevent all secret leaks, and can be bypassed. Existing CI scanning remains the fallback **after** a push.
+
+**GitHub account administrator actions still needed:** check personal account push protection and repository-specific secret scanning, turn on supported settings, and configure branch rulesets requiring successful security checks. This connected GitHub App does not have permission to change those settings. Public repository secret scanning and user push protection may already be automatic; verify in the GitHub UI. Private-repository capabilities depend on the account and plan.
+
+New repository onboarding creates a PR for both the central workflow caller and local pre-commit configuration. The PR does not activate hooks on machines or enable GitHub account security features.
