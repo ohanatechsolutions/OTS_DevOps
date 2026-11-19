@@ -200,6 +200,25 @@ jobs:
           find . -path './.git' -prune -o -name SKILL.md -print0 |
             while IFS= read -r -d '' file; do skillspector scan "$(dirname "$file")" --no-llm; done
 
+  osv:
+    name: OSV dependency and lockfile audit
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Scan available manifests without uploading artifacts
+        shell: bash
+        run: |
+          set -euo pipefail
+          docker run --rm \
+            -v "$PWD:/github/workspace:ro" \
+            -w /github/workspace \
+            ghcr.io/google/osv-scanner-action:v2.7.1 --recursive ./
+
   policy:
     name: Agent sandbox and release applicability
     runs-on: ubuntu-latest
