@@ -1,0 +1,9 @@
+# OTS local secret detection. Enable on each developer machine with:
+#   python -m pip install pre-commit
+#   pre-commit install
+# Requires Go for installation of the upstream Gitleaks hook.
+repos:
+  - repo: https://github.com/gitleaks/gitleaks
+    rev: v8.30.1
+    hooks:
+      - id: gitleaks
