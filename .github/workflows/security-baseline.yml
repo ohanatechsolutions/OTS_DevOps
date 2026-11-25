@@ -106,7 +106,7 @@ jobs:
                 python -m pip install -r requirements-dev.txt
                 python -m pytest -q tests -k 'not browser'
                 ;;
-              ohanatechsolutions/OTS-Jarvis)
+              ohanatechsolutions/OTS-Jarvis|ohanatechsolutions/OTS-OMNICORE)
                 python -m pip install -e . 'pytest==9.0.2'
                 python -m pytest -q tests/test_jarvis.py
                 ;;
@@ -138,7 +138,7 @@ jobs:
 
   python_types:
     name: Python type-check gate
-    if: contains(fromJSON('["OTS-Jarvis","TanDM"]'), github.event.repository.name)
+    if: contains(fromJSON('["OTS-Jarvis","OTS-OMNICORE","TanDM"]'), github.event.repository.name)
     runs-on: ubuntu-latest
     timeout-minutes: 15
     permissions:
@@ -157,7 +157,7 @@ jobs:
         run: |
           set -euo pipefail
           case "$GITHUB_REPOSITORY" in
-            ohanatechsolutions/OTS-Jarvis) target=jarvis ;;
+            ohanatechsolutions/OTS-Jarvis|ohanatechsolutions/OTS-OMNICORE) target=jarvis ;;
             ohanatechsolutions/TanDM) target=tandm ;;
             *) echo 'Python type check N/A'; exit 0 ;;
           esac
@@ -261,13 +261,13 @@ jobs:
           {
             echo '### OTS additional runtime security requirements'
             case "$REPO" in
-              OTS-Jarvis)
+              OTS-Jarvis|OTS-OMNICORE)
                 echo 'NVIDIA OpenShell: REQUIRED for autonomous agent execution. CI cannot prove runtime sandboxing; deployment gate remains UNVERIFIED.'
                 ;;
               *) echo 'NVIDIA OpenShell: N/A unless autonomous agents are executed at runtime.' ;;
             esac
             case "$REPO" in
-              OTS-Jarvis|OTS-Security-Suite|Clipboard-History|TanDM)
+              OTS-Jarvis|OTS-OMNICORE|OTS-Security-Suite|Clipboard-History|TanDM)
                 echo 'Release artifact provenance and checksum verification: required in project-specific release pipelines; not verified by this repository-source scan.'
                 ;;
               *) echo 'Release artifact verification: N/A (no compiled application release configured).' ;;
